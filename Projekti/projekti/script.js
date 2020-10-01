@@ -38,20 +38,49 @@ navigator.geolocation.getCurrentPosition(success, error, options);
 
 
 
+
+/* const greenIcon = L.icon({                   // vihreä ikoni
+  iconUrl: 'iconit/marker-icon-green.png',
+  shadowUrl: 'iconit/marker-shadow.png',
+
+  iconSize: [25,41],  //iconin koko
+  shadowSize: [50,64], //varjon koko
+  shadowAnchor: [13, 64],  // point of the shadow which will correspond to marker's location
+  iconAnchor: [14, 41],     // point of the icon which will correspond to marker's location
+}); */
+const redIcon = L.icon({                    //punainen iconi esim. L.marker([lat, long], {icon: redIcon}).addTo(kartta)}
+  iconUrl: 'iconit/marker-icon-red.png',
+  shadowUrl: 'iconit/marker-shadow.png',
+
+  iconSize: [25,41],  //iconin koko
+  shadowSize: [50,64], //varjon koko
+  shadowAnchor: [13, 64],  // point of the shadow which will correspond to marker's location
+  iconAnchor: [14, 41],    // point of the icon which will correspond to marker's location
+});
+
+
+
+
+
 //haetaan tapahtumien tiedot myHelsinki API:sta
 function myHelsinki(){
 const proxyOsoite = 'https://cors-anywhere.herokuapp.com/' //proxy osoite-API joka enabloi cross-origin requestit
-const myHelsinkiOsoite = 'http://open-api.myhelsinki.fi/v1/events/?limit=100';
+const myHelsinkiOsoite = 'http://open-api.myhelsinki.fi/v1/events/?limit=1000';
 fetch(proxyOsoite + myHelsinkiOsoite).then((vastaus) => {
   return vastaus.json();
 }).then(function(myHelsinkiTapahtumat){
     console.log(myHelsinkiTapahtumat);
-
+  let checklonlatT = [];
     for (let i = 0; i < myHelsinkiTapahtumat.data.length; i++){ //Poimii listasta koordinantit jokaiseen tapahtumaan ja tekee siitä markerin
       let longT = myHelsinkiTapahtumat.data[i].location.lon;
       let latT = myHelsinkiTapahtumat.data[i].location.lat;
       console.log(latT + ' Lat - ' + longT + ' Lon');
-      L.marker([latT, longT]).addTo(kartta)
+      let includecheckT = checklonlatT.includes(latT + '-' + longT);
+
+      if (includecheckT === false){                 //Poistaa duplicatet
+      checklonlatT.push(latT + '-' + longT);
+      L.marker([latT, longT], {icon: redIcon}).addTo(kartta)}
+      else{}
     }
 
 }).catch(function(error){console.log(error);
