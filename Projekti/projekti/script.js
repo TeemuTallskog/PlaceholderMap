@@ -47,6 +47,7 @@ navigator.geolocation.getCurrentPosition(success, error, options);
   shadowSize: [50,64], //varjon koko
   shadowAnchor: [13, 64],  // point of the shadow which will correspond to marker's location
   iconAnchor: [14, 41],     // point of the icon which will correspond to marker's location
+  popupAnchor:  [-3, -41] // point from which the popup should open relative to the iconAnchor
 }); */
 const redIcon = L.icon({                    //punainen iconi esim. L.marker([lat, long], {icon: redIcon}).addTo(kartta)}
   iconUrl: 'iconit/marker-icon-red.png',
@@ -56,6 +57,7 @@ const redIcon = L.icon({                    //punainen iconi esim. L.marker([lat
   shadowSize: [50,64], //varjon koko
   shadowAnchor: [13, 64],  // point of the shadow which will correspond to marker's location
   iconAnchor: [14, 41],    // point of the icon which will correspond to marker's location
+  popupAnchor:  [-3, -41] // point from which the popup should open relative to the iconAnchor
 });
 
 
@@ -77,9 +79,13 @@ fetch(proxyOsoite + myHelsinkiOsoite).then((vastaus) => {
       console.log(latT + ' Lat - ' + longT + ' Lon');
       let includecheckT = checklonlatT.includes(latT + '-' + longT);
 
-      if (includecheckT === false){                 //Poistaa duplicatet
-      checklonlatT.push(latT + '-' + longT);
-      L.marker([latT, longT], {icon: redIcon}).addTo(kartta)}
+      if (includecheckT === false) {             //Poistaa duplicatet
+        let popupInfoT = myHelsinkiTapahtumat.data[i].name.fi;
+        checklonlatT.push(latT + '-' + longT);
+        L.marker([latT, longT], {icon: redIcon}).addTo(kartta).
+            bindPopup(popupInfoT);
+      }
+
       else{}
     }
 
