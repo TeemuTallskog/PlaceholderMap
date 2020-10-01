@@ -59,7 +59,42 @@ const redIcon = L.icon({                    //punainen iconi esim. L.marker([lat
   iconAnchor: [14, 41],    // point of the icon which will correspond to marker's location
   popupAnchor:  [-3, -41] // point from which the popup should open relative to the iconAnchor
 });
+const VHSLpurpleIcon = L.icon({                    //purplehsl iconi esim. L.marker([lat, long], {icon: redIcon}).addTo(kartta)}
+  iconUrl: 'iconit/HSL-marker-icon-purple.png',
+  shadowUrl: 'iconit/marker-shadow.png',
 
+  iconSize: [25,41],  //iconin koko
+  shadowSize: [50,64], //varjon koko
+  shadowAnchor: [13, 64],  // point of the shadow which will correspond to marker's location
+  iconAnchor: [14, 41],    // point of the icon which will correspond to marker's location
+});
+const VHSLpinkIcon = L.icon({                    //pinkkihsl iconi esim. L.marker([lat, long], {icon: redIcon}).addTo(kartta)}
+  iconUrl: 'iconit/HSL-marker-icon-pink.png',
+  shadowUrl: 'iconit/marker-shadow.png',
+
+  iconSize: [25,41],  //iconin koko
+  shadowSize: [50,64], //varjon koko
+  shadowAnchor: [13, 64],  // point of the shadow which will correspond to marker's location
+  iconAnchor: [14, 41],    // point of the icon which will correspond to marker's location
+});
+const VHSLblueIcon = L.icon({                    //sininenhsl iconi esim. L.marker([lat, long], {icon: redIcon}).addTo(kartta)}
+  iconUrl: 'iconit/HSL-marker-icon-blue.png',
+  shadowUrl: 'iconit/marker-shadow.png',
+
+  iconSize: [25,41],  //iconin koko
+  shadowSize: [50,64], //varjon koko
+  shadowAnchor: [13, 64],  // point of the shadow which will correspond to marker's location
+  iconAnchor: [14, 41],    // point of the icon which will correspond to marker's location
+});
+const VHSLlightblueIcon = L.icon({                    //vaaleansininenhsl iconi esim. L.marker([lat, long], {icon: redIcon}).addTo(kartta)}
+  iconUrl: 'iconit/HSL-marker-icon-lightblue.png',
+  shadowUrl: 'iconit/marker-shadow.png',
+
+  iconSize: [25,41],  //iconin koko
+  shadowSize: [50,64], //varjon koko
+  shadowAnchor: [13, 64],  // point of the shadow which will correspond to marker's location
+  iconAnchor: [14, 41],    // point of the icon which will correspond to marker's location
+});
 
 //------------------------------------------------------------------------------------------------------------------
 
@@ -116,20 +151,45 @@ function VHSLlipunmyynti() {
     console.log(VHSLlipunmyyntispot);
 
 //markerien teko HSL myyntipisteille alkaa tästä
-    for (let Vi = 0; Vi < VHSLlipunmyyntispot.features.length; Vi++) {
-      let Vlong = VHSLlipunmyyntispot.features[Vi].geometry.coordinates[1];
-      let Vlat = VHSLlipunmyyntispot.features[Vi].geometry.coordinates[0];
-      console.log(Vlat + ' Lat - ' + Vlong + ' Lon');
+    let VHSLPKspots = VHSLlipunmyyntispot;
+    let VHSLPKpisteet = [];
+
+
+   for (let Vj = 0; Vj < VHSLPKspots.features.length; Vj++) {
+     if (VHSLPKspots.features[Vj].properties.Zone === 'A' || VHSLPKspots.features[Vj].properties.Zone === 'B' || VHSLPKspots.features[Vj].properties.Zone === 'C') {
+       VHSLPKpisteet.push(VHSLPKspots.features[Vj]);
+     }
+   }
+   console.log(VHSLPKpisteet);
+    for (let Vi = 0; Vi < VHSLPKpisteet.length; Vi++) {
+      let Vlong = VHSLPKpisteet[Vi].geometry.coordinates[1];
+      let Vlat = VHSLPKpisteet[Vi].geometry.coordinates[0];
+      //console.log(Vlat + ' Lat - ' + Vlong + ' Lon');
       //Lisää avustavan tekstin popupiin, jos se ei ole null
       let Vaddhelp = '';
-      if (VHSLlipunmyyntispot.features[Vi].properties.Address_help_fi !== null){(Vaddhelp = VHSLlipunmyyntispot.features[Vi].properties.Address_help_fi)} else {Vaddhelp = ''}
-      //Lisää vyöhykkeen A-D popupiin, jos se ei ole null
-      let Vzone = '';
-      if (VHSLlipunmyyntispot.features[Vi].properties.Address_help_fi !== null){(Vzone = VHSLlipunmyyntispot.features[Vi].properties.Zone)} else {Vzone = ''}
-      //lisää markerin kartalle ja antaa sille popupiin tietoja
-      L.marker([Vlong, Vlat]).addTo(kartta).bindPopup(VHSLlipunmyyntispot.features[Vi].properties.Tyyppi + '</br>' + VHSLlipunmyyntispot.features[Vi].properties.Address_fi + '</br>' + VHSLlipunmyyntispot.features[Vi].properties.City_fi + ' Vyöhyke: ' + Vzone + '</br>' + Vaddhelp)
+      if (VHSLPKpisteet[Vi].properties.Address_help_fi !== null){(Vaddhelp = VHSLPKpisteet[Vi].properties.Address_help_fi)} else {Vaddhelp = ''}
+
+        //lisää markerin kartalle ja antaa sille popupiin tietoja
+        //samalla antaa markerille värin
+        if (VHSLPKpisteet[Vi].properties.Tyyppi === 'Palvelupiste') {
+            L.marker([Vlong, Vlat],{icon: VHSLpurpleIcon}).addTo(kartta).bindPopup(VHSLPKpisteet[Vi].properties.Tyyppi + '</br>' + VHSLPKpisteet[Vi].properties.Address_fi + '</br>' + VHSLPKpisteet[Vi].properties.City_fi + ' Vyöhyke: ' + VHSLPKpisteet[Vi].properties.Zone + '</br>' + Vaddhelp)
+
+        } if (VHSLPKpisteet[Vi].properties.Tyyppi === 'Myyntipiste') {
+            L.marker([Vlong, Vlat],{icon: VHSLpinkIcon}).addTo(kartta).bindPopup(VHSLPKpisteet[Vi].properties.Tyyppi + '</br>' + VHSLPKpisteet[Vi].properties.Address_fi + '</br>' + VHSLPKpisteet[Vi].properties.City_fi + ' Vyöhyke: ' + VHSLPKpisteet[Vi].properties.Zone + '</br>' + Vaddhelp)
+
+        } if (VHSLPKpisteet[Vi].properties.Tyyppi === 'Monilippuautomaatti') {
+            L.marker([Vlong, Vlat],{icon: VHSLblueIcon}).addTo(kartta).bindPopup(VHSLPKpisteet[Vi].properties.Tyyppi + '</br>' + VHSLPKpisteet[Vi].properties.Address_fi + '</br>' + VHSLPKpisteet[Vi].properties.City_fi + ' Vyöhyke: ' + VHSLPKpisteet[Vi].properties.Zone + '</br>' + Vaddhelp)
+
+        } if (VHSLPKpisteet[Vi].properties.Tyyppi === 'Kertalippuautomaatti') {
+            L.marker([Vlong, Vlat],{icon: VHSLlightblueIcon}).addTo(kartta).bindPopup(VHSLPKpisteet[Vi].properties.Tyyppi + '</br>' + VHSLPKpisteet[Vi].properties.Address_fi + '</br>' + VHSLPKpisteet[Vi].properties.City_fi + ' Vyöhyke: ' + VHSLPKpisteet[Vi].properties.Zone + '</br>' + Vaddhelp)
+
+        } if (VHSLPKpisteet[Vi].properties.Tyyppi === 'Pysäköintiautomaatti') {
+            L.marker([Vlong, Vlat],{icon: VHSLlightblueIcon}).addTo(kartta).bindPopup(VHSLPKpisteet[Vi].properties.Tyyppi + '</br>' + VHSLPKpisteet[Vi].properties.Address_fi + '</br>' + VHSLPKpisteet[Vi].properties.City_fi + ' Vyöhyke: ' + VHSLPKpisteet[Vi].properties.Zone + '</br>' + Vaddhelp)
+
+        }
+
     }
-//tarvitaan lisää värivaihtoehtoja markereille tunnistusta varten
+
  }).catch(function(error){console.log(error);
 })}
 VHSLlipunmyynti();
