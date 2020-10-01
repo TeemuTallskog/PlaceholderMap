@@ -71,12 +71,18 @@ const myHelsinkiOsoite = 'http://open-api.myhelsinki.fi/v1/events/?limit=1000';
 fetch(proxyOsoite + myHelsinkiOsoite).then((vastaus) => {
   return vastaus.json();
 }).then(function(myHelsinkiTapahtumat){
-    console.log(myHelsinkiTapahtumat);
   let checklonlatT = [];
+  console.log(myHelsinkiTapahtumat);
     for (let i = 0; i < myHelsinkiTapahtumat.data.length; i++){ //Poimii listasta koordinantit jokaiseen tapahtumaan ja tekee siitä markerin
+      if(myHelsinkiTapahtumat.data[i].event_dates.starting_day !== null) {
+        myHelsinkiTapahtumat.data[i].event_dates.starting_day = myHelsinkiTapahtumat.data[i].event_dates.starting_day.replace(/[A-Z]/g, ' ');   //Poistaa päivämäärästä kirjaimet
+        myHelsinkiTapahtumat.data[i].event_dates.starting_day = myHelsinkiTapahtumat.data[i].event_dates.starting_day.slice(0 ,-5);             //Poistaa päivämäärän ajasta millisekunnit
+        myHelsinkiTapahtumat.data.sort(function(a, b) {   //sortaa tapahtumat aika järjestykseen
+          return b.date > a.date;
+        })
+      }
       let longT = myHelsinkiTapahtumat.data[i].location.lon;    //longitude
       let latT = myHelsinkiTapahtumat.data[i].location.lat;     //latitude
-      console.log(latT + ' Lat - ' + longT + ' Lon');
       let includecheckT = checklonlatT.includes(latT + '-' + longT);              //katsoo onko checkonlatT arrayssa samoja koordinantteja
       if (includecheckT === false) {                                                 //Poistaa duplicatet
         let popupInfoT = myHelsinkiTapahtumat.data[i].name.fi;                       // tapahtuman nimi suomeksi
@@ -85,9 +91,10 @@ fetch(proxyOsoite + myHelsinkiOsoite).then((vastaus) => {
             bindPopup(popupInfoT).          //tapahtuman nimi popupissa
         on('click', function(){
           document.getElementById('tapahtumanNimiT').innerHTML = myHelsinkiTapahtumat.data[i].name.fi;  //tapahtuman nimi
+          document.getElementById('tapahtumanAjankohta').innerHTML = myHelsinkiTapahtumat.data[i].event_dates.starting_day;
           document.getElementById('tapahtumanOsoite').innerHTML = myHelsinkiTapahtumat.data[i].location.address.street_address;  //tapahtuman osoite
           document.getElementById('tapahtumanKaupunkiT').innerHTML = myHelsinkiTapahtumat.data[i].location.address.locality;  //tapahtuman Kaupunki
-          document.getElementById('tapahtumanSummary').innerHTML = myHelsinkiTapahtumat.data[i].description.intro; //tapahtuman kuvaus
+          document.getElementById('tapahtumanSummary').innerHTML = myHelsinkiTapahtumat.data[i].description.body; //tapahtuman kuvaus
           document.getElementById('tapahtumaLinkki').href = innerHTML = myHelsinkiTapahtumat.data[i].info_url;  //lisää tapahtuman linkin, tapahtuman nimeen
         })
       }
