@@ -36,7 +36,7 @@ function error(err) {
 navigator.geolocation.getCurrentPosition(success, error, options);
 
 
-
+//---------------------------------Iconit-------------------------------------------------------------------------
 
 
 /* const greenIcon = L.icon({                   // vihreä ikoni
@@ -61,7 +61,7 @@ const redIcon = L.icon({                    //punainen iconi esim. L.marker([lat
 });
 
 
-
+//------------------------------------------------------------------------------------------------------------------
 
 
 //haetaan tapahtumien tiedot myHelsinki API:sta
@@ -74,21 +74,25 @@ fetch(proxyOsoite + myHelsinkiOsoite).then((vastaus) => {
     console.log(myHelsinkiTapahtumat);
   let checklonlatT = [];
     for (let i = 0; i < myHelsinkiTapahtumat.data.length; i++){ //Poimii listasta koordinantit jokaiseen tapahtumaan ja tekee siitä markerin
-      let longT = myHelsinkiTapahtumat.data[i].location.lon;
-      let latT = myHelsinkiTapahtumat.data[i].location.lat;
+      let longT = myHelsinkiTapahtumat.data[i].location.lon;    //longitude
+      let latT = myHelsinkiTapahtumat.data[i].location.lat;     //latitude
       console.log(latT + ' Lat - ' + longT + ' Lon');
-      let includecheckT = checklonlatT.includes(latT + '-' + longT);
-
-      if (includecheckT === false) {             //Poistaa duplicatet
-        let popupInfoT = myHelsinkiTapahtumat.data[i].name.fi;
-        checklonlatT.push(latT + '-' + longT);
+      let includecheckT = checklonlatT.includes(latT + '-' + longT);              //katsoo onko checkonlatT arrayssa samoja koordinantteja
+      if (includecheckT === false) {                                                 //Poistaa duplicatet
+        let popupInfoT = myHelsinkiTapahtumat.data[i].name.fi;                       // tapahtuman nimi suomeksi
+        checklonlatT.push(latT + '-' + longT);                                     //lisää lon + lat listaan, jotta ei tule duplicateja
         L.marker([latT, longT], {icon: redIcon}).addTo(kartta).
-            bindPopup(popupInfoT);
+            bindPopup(popupInfoT).          //tapahtuman nimi popupissa
+        on('click', function(){
+          document.getElementById('tapahtumanNimiT').innerHTML = myHelsinkiTapahtumat.data[i].name.fi;  //tapahtuman nimi
+          document.getElementById('tapahtumanOsoite').innerHTML = myHelsinkiTapahtumat.data[i].location.address.street_address;  //tapahtuman osoite
+          document.getElementById('tapahtumanKaupunkiT').innerHTML = myHelsinkiTapahtumat.data[i].location.address.locality;  //tapahtuman Kaupunki
+          document.getElementById('tapahtumanSummary').innerHTML = myHelsinkiTapahtumat.data[i].description.intro; //tapahtuman kuvaus
+          document.getElementById('tapahtumaLinkki').href = innerHTML = myHelsinkiTapahtumat.data[i].info_url;  //lisää tapahtuman linkin, tapahtuman nimeen
+        })
       }
-
       else{}
     }
-
 }).catch(function(error){console.log(error);
 })}
 myHelsinki();
