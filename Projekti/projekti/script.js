@@ -67,6 +67,7 @@ const VHSLpurpleIcon = L.icon({                    //purplehsl iconi esim. L.mar
   shadowSize: [50,64], //varjon koko
   shadowAnchor: [13, 64],  // point of the shadow which will correspond to marker's location
   iconAnchor: [14, 41],    // point of the icon which will correspond to marker's location
+  popupAnchor:  [-3, -41] // point from which the popup should open relative to the iconAnchor
 });
 const VHSLpinkIcon = L.icon({                    //pinkkihsl iconi esim. L.marker([lat, long], {icon: redIcon}).addTo(kartta)}
   iconUrl: 'iconit/HSL-marker-icon-pink.png',
@@ -76,6 +77,7 @@ const VHSLpinkIcon = L.icon({                    //pinkkihsl iconi esim. L.marke
   shadowSize: [50,64], //varjon koko
   shadowAnchor: [13, 64],  // point of the shadow which will correspond to marker's location
   iconAnchor: [14, 41],    // point of the icon which will correspond to marker's location
+  popupAnchor:  [-3, -41] // point from which the popup should open relative to the iconAnchor
 });
 const VHSLblueIcon = L.icon({                    //sininenhsl iconi esim. L.marker([lat, long], {icon: redIcon}).addTo(kartta)}
   iconUrl: 'iconit/HSL-marker-icon-blue.png',
@@ -85,6 +87,7 @@ const VHSLblueIcon = L.icon({                    //sininenhsl iconi esim. L.mark
   shadowSize: [50,64], //varjon koko
   shadowAnchor: [13, 64],  // point of the shadow which will correspond to marker's location
   iconAnchor: [14, 41],    // point of the icon which will correspond to marker's location
+  popupAnchor:  [-3, -41] // point from which the popup should open relative to the iconAnchor
 });
 const VHSLlightblueIcon = L.icon({                    //vaaleansininenhsl iconi esim. L.marker([lat, long], {icon: redIcon}).addTo(kartta)}
   iconUrl: 'iconit/HSL-marker-icon-lightblue.png',
@@ -94,6 +97,7 @@ const VHSLlightblueIcon = L.icon({                    //vaaleansininenhsl iconi 
   shadowSize: [50,64], //varjon koko
   shadowAnchor: [13, 64],  // point of the shadow which will correspond to marker's location
   iconAnchor: [14, 41],    // point of the icon which will correspond to marker's location
+  popupAnchor:  [-3, -41] // point from which the popup should open relative to the iconAnchor
 });
 
 //------------------------------------------------------------------------------------------------------------------
@@ -193,6 +197,5 @@ function VHSLlipunmyynti() {
  }).catch(function(error){console.log(error);
 })}
 VHSLlipunmyynti();
-
-//VILI
 */
+//VILI
