@@ -39,7 +39,7 @@ navigator.geolocation.getCurrentPosition(success, error, options);
 //---------------------------------Iconit-------------------------------------------------------------------------
 
 
-/* const greenIcon = L.icon({                   // vihreä ikoni
+const greenIcon = L.icon({                   // vihreä ikoni
   iconUrl: 'iconit/marker-icon-green.png',
   shadowUrl: 'iconit/marker-shadow.png',
 
@@ -48,7 +48,7 @@ navigator.geolocation.getCurrentPosition(success, error, options);
   shadowAnchor: [13, 64],  // point of the shadow which will correspond to marker's location
   iconAnchor: [14, 41],     // point of the icon which will correspond to marker's location
   popupAnchor:  [-3, -41] // point from which the popup should open relative to the iconAnchor
-}); */
+});
 const redIcon = L.icon({                    //punainen iconi esim. L.marker([lat, long], {icon: redIcon}).addTo(kartta)}
   iconUrl: 'iconit/marker-icon-red.png',
   shadowUrl: 'iconit/marker-shadow.png',
@@ -104,10 +104,10 @@ const VHSLlightblueIcon = L.icon({                    //vaaleansininenhsl iconi 
 
 
 //haetaan tapahtumien tiedot myHelsinki API:sta
-function myHelsinki(){
+function myHelsinkiEvents(){
 const proxyOsoite = 'https://cors-anywhere.herokuapp.com/' //proxy osoite-API joka enabloi cross-origin requestit
-const myHelsinkiOsoite = 'http://open-api.myhelsinki.fi/v1/events/?limit=1000';
-fetch(proxyOsoite + myHelsinkiOsoite).then((vastaus) => {
+const myHelsinkiEventsOsoite = 'http://open-api.myhelsinki.fi/v1/events/?limit=500';
+fetch(proxyOsoite + myHelsinkiEventsOsoite).then((vastaus) => {
   return vastaus.json();
 }).then(function(myHelsinkiTapahtumat){
   let checklonlatT = [];
@@ -126,8 +126,7 @@ fetch(proxyOsoite + myHelsinkiOsoite).then((vastaus) => {
       if (includecheckT === false) {                                                 //Poistaa duplicatet
         let popupInfoT = myHelsinkiTapahtumat.data[i].name.fi;                       // tapahtuman nimi suomeksi
         checklonlatT.push(latT + '-' + longT);                                     //lisää lon + lat listaan, jotta ei tule duplicateja
-        L.marker([latT, longT], {icon: redIcon}).addTo(kartta).
-            bindPopup(popupInfoT).          //tapahtuman nimi popupissa
+        L.marker([latT, longT], {icon: redIcon}).addTo(kartta).bindPopup(popupInfoT).          //tapahtuman nimi popupissa
         on('click', function(){
           document.getElementById('tapahtumanNimiT').innerHTML = myHelsinkiTapahtumat.data[i].name.fi;  //tapahtuman nimi
           document.getElementById('tapahtumanAjankohta').innerHTML = myHelsinkiTapahtumat.data[i].event_dates.starting_day;
@@ -141,7 +140,45 @@ fetch(proxyOsoite + myHelsinkiOsoite).then((vastaus) => {
     }
 }).catch(function(error){console.log(error);
 })}
-myHelsinki();
+myHelsinkiEvents();
+
+//haetaan tapahtumien tiedot myHelsinki API:sta
+function myHelsinkiActivities(){
+  const proxyOsoite = 'https://cors-anywhere.herokuapp.com/' //proxy osoite-API joka enabloi cross-origin requestit
+  const myHelsinkiEventsOsoite = 'http://open-api.myhelsinki.fi/v1/activities/';
+  fetch(proxyOsoite + myHelsinkiEventsOsoite).then((vastaus) => {
+    return vastaus.json();
+  }).then(function(myHelsinkiTapahtumat){
+    let checklonlatT = [];
+    console.log(myHelsinkiTapahtumat);
+    for (let i = 0; i < myHelsinkiTapahtumat.data.length; i++){ //Poimii listasta koordinantit jokaiseen tapahtumaan ja tekee siitä markerin
+      let longT = myHelsinkiTapahtumat.data[i].location.lon;    //longitude
+      let latT = myHelsinkiTapahtumat.data[i].location.lat;     //latitude
+      let includecheckT = checklonlatT.includes(latT + '-' + longT);              //katsoo onko checkonlatT arrayssa samoja koordinantteja
+      if (includecheckT === false) {                                                 //Poistaa duplicatet
+        let popupInfoT = myHelsinkiTapahtumat.data[i].name.fi;                       // tapahtuman nimi suomeksi
+        checklonlatT.push(latT + '-' + longT);                                     //lisää lon + lat listaan, jotta ei tule duplicateja
+        L.marker([latT, longT], {icon: greenIcon}).addTo(kartta).bindPopup(popupInfoT).          //tapahtuman nimi popupissa
+            on('click', function(){
+              document.getElementById('tapahtumanNimiT').innerHTML = myHelsinkiTapahtumat.data[i].name.fi;  //tapahtuman nimi
+              document.getElementById('tapahtumanAjankohta').innerHTML = myHelsinkiTapahtumat.data[i].where_when_duration.where_and_when + '<br>' + 'Kesto: ' + myHelsinkiTapahtumat.data[i].where_when_duration.duration;
+              document.getElementById('tapahtumanOsoite').innerHTML = myHelsinkiTapahtumat.data[i].location.address.street_address;  //tapahtuman osoite
+              document.getElementById('tapahtumanKaupunkiT').innerHTML = myHelsinkiTapahtumat.data[i].location.address.locality;  //tapahtuman Kaupunki
+              document.getElementById('tapahtumanSummary').innerHTML = myHelsinkiTapahtumat.data[i].description.body; //tapahtuman kuvaus
+              document.getElementById('tapahtumaLinkki').href = innerHTML = myHelsinkiTapahtumat.data[i].info_url;  //lisää tapahtuman linkin, tapahtuman nimeen
+            })
+      }
+      else{}
+    }
+  }).catch(function(error){console.log(error);
+  })}
+myHelsinkiActivities();
+
+
+
+
+
+
 /*
 //VILI
 //tämä on siirretty kommenttiin, jotta se ei tuo liikaa dataa muun koodin testailuun
