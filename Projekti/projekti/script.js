@@ -40,62 +40,38 @@ navigator.geolocation.getCurrentPosition(success, error, options);
 
 
 const greenIcon = L.icon({                   // vihreä ikoni
-  iconUrl: 'iconit/marker-icon-green.png',
-  shadowUrl: 'iconit/marker-shadow.png',
-
-  iconSize: [25,41],  //iconin koko
-  shadowSize: [50,64], //varjon koko
-  shadowAnchor: [13, 64],  // point of the shadow which will correspond to marker's location
+  iconUrl: 'iconit/marker-green.png',
+  iconSize: [50,41],  //iconin koko
   iconAnchor: [14, 41],     // point of the icon which will correspond to marker's location
   popupAnchor:  [-3, -41] // point from which the popup should open relative to the iconAnchor
 });
 const redIcon = L.icon({                    //punainen iconi esim. L.marker([lat, long], {icon: redIcon}).addTo(kartta)}
-  iconUrl: 'iconit/marker-icon-red.png',
-  shadowUrl: 'iconit/marker-shadow.png',
-
-  iconSize: [25,41],  //iconin koko
-  shadowSize: [50,64], //varjon koko
-  shadowAnchor: [13, 64],  // point of the shadow which will correspond to marker's location
+  iconUrl: 'iconit/marker-red.png',
+  iconSize: [50,41],  //iconin koko
   iconAnchor: [14, 41],    // point of the icon which will correspond to marker's location
   popupAnchor:  [-3, -41] // point from which the popup should open relative to the iconAnchor
 });
 const VHSLpurpleIcon = L.icon({                    //purplehsl iconi esim. L.marker([lat, long], {icon: redIcon}).addTo(kartta)}
-  iconUrl: 'iconit/HSL-marker-icon-purple.png',
-  shadowUrl: 'iconit/marker-shadow.png',
-
-  iconSize: [25,41],  //iconin koko
-  shadowSize: [50,64], //varjon koko
-  shadowAnchor: [13, 64],  // point of the shadow which will correspond to marker's location
+  iconUrl: 'iconit/HSL-marker-purple.png',
+  iconSize: [50,41],  //iconin koko
   iconAnchor: [14, 41],    // point of the icon which will correspond to marker's location
   popupAnchor:  [-3, -41] // point from which the popup should open relative to the iconAnchor
 });
 const VHSLpinkIcon = L.icon({                    //pinkkihsl iconi esim. L.marker([lat, long], {icon: redIcon}).addTo(kartta)}
-  iconUrl: 'iconit/HSL-marker-icon-pink.png',
-  shadowUrl: 'iconit/marker-shadow.png',
-
-  iconSize: [25,41],  //iconin koko
-  shadowSize: [50,64], //varjon koko
-  shadowAnchor: [13, 64],  // point of the shadow which will correspond to marker's location
+  iconUrl: 'iconit/HSL-marker-pink.png',
+  iconSize: [50,41],  //iconin koko
   iconAnchor: [14, 41],    // point of the icon which will correspond to marker's location
   popupAnchor:  [-3, -41] // point from which the popup should open relative to the iconAnchor
 });
 const VHSLblueIcon = L.icon({                    //sininenhsl iconi esim. L.marker([lat, long], {icon: redIcon}).addTo(kartta)}
-  iconUrl: 'iconit/HSL-marker-icon-blue.png',
-  shadowUrl: 'iconit/marker-shadow.png',
-
-  iconSize: [25,41],  //iconin koko
-  shadowSize: [50,64], //varjon koko
-  shadowAnchor: [13, 64],  // point of the shadow which will correspond to marker's location
+  iconUrl: 'iconit/HSL-marker-blue.png',
+  iconSize: [50,41],  //iconin koko
   iconAnchor: [14, 41],    // point of the icon which will correspond to marker's location
   popupAnchor:  [-3, -41] // point from which the popup should open relative to the iconAnchor
 });
 const VHSLlightblueIcon = L.icon({                    //vaaleansininenhsl iconi esim. L.marker([lat, long], {icon: redIcon}).addTo(kartta)}
-  iconUrl: 'iconit/HSL-marker-icon-lightblue.png',
-  shadowUrl: 'iconit/marker-shadow.png',
-
-  iconSize: [25,41],  //iconin koko
-  shadowSize: [50,64], //varjon koko
-  shadowAnchor: [13, 64],  // point of the shadow which will correspond to marker's location
+  iconUrl: 'iconit/HSL-marker-lightblue.png',
+  iconSize: [50,41],  //iconin koko
   iconAnchor: [14, 41],    // point of the icon which will correspond to marker's location
   popupAnchor:  [-3, -41] // point from which the popup should open relative to the iconAnchor
 });
@@ -161,7 +137,7 @@ function myHelsinkiActivities(){
         L.marker([latT, longT], {icon: greenIcon}).addTo(kartta).bindPopup(popupInfoT).          //tapahtuman nimi popupissa
             on('click', function(){
               document.getElementById('tapahtumanNimiT').innerHTML = myHelsinkiTapahtumat.data[i].name.fi;  //tapahtuman nimi
-              document.getElementById('tapahtumanAjankohta').innerHTML = myHelsinkiTapahtumat.data[i].where_when_duration.where_and_when + '<br>' + 'Kesto: ' + myHelsinkiTapahtumat.data[i].where_when_duration.duration;
+              document.getElementById('tapahtumanAjankohta').innerHTML = myHelsinkiTapahtumat.data[i].where_when_duration.where_and_when + '<br>' + 'Kesto: ' + myHelsinkiTapahtumat.data[i].where_when_duration.duration; // Aktiviteetin aukiolo ja kesto
               document.getElementById('tapahtumanOsoite').innerHTML = myHelsinkiTapahtumat.data[i].location.address.street_address;  //tapahtuman osoite
               document.getElementById('tapahtumanKaupunkiT').innerHTML = myHelsinkiTapahtumat.data[i].location.address.locality;  //tapahtuman Kaupunki
               document.getElementById('tapahtumanSummary').innerHTML = myHelsinkiTapahtumat.data[i].description.body; //tapahtuman kuvaus
@@ -179,7 +155,7 @@ myHelsinkiActivities();
 
 
 
-/*
+
 //VILI
 //tämä on siirretty kommenttiin, jotta se ei tuo liikaa dataa muun koodin testailuun
 //haetaan HSL myyntipisteet
@@ -234,5 +210,5 @@ function VHSLlipunmyynti() {
  }).catch(function(error){console.log(error);
 })}
 VHSLlipunmyynti();
-*/
+
 //VILI
