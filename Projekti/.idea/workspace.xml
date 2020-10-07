@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SCOPE_TYPE" value="8" />
+    <option name="CUSTOM_SCOPE_NAME" value="All Places" />
+  </component>
   <component name="BranchesTreeState">
     <expand>
       <path>
@@ -67,7 +71,7 @@
       <workItem from="1601486054941" duration="22000" />
       <workItem from="1601552220977" duration="17176000" />
       <workItem from="1601639545603" duration="1158000" />
-      <workItem from="1602058694715" duration="15159000" />
+      <workItem from="1602058694715" duration="33881000" />
     </task>
     <servers />
   </component>
@@ -91,5 +95,13 @@
       <screen x="68" y="0" width="2492" height="1440" />
     </state>
     <state x="1094" y="474" key="FileChooserDialogImpl/-1852.130.1852.1080/68.0.2492.1440@68.0.2492.1440" timestamp="1601486074739" />
+    <state x="970" y="340" key="run.anything.popup" timestamp="1602085823849">
+      <screen x="67" y="0" width="2493" height="1440" />
+    </state>
+    <state x="970" y="340" key="run.anything.popup/-1853.130.1853.1080/67.0.2493.1440@67.0.2493.1440" timestamp="1602085823849" />
+    <state x="1105" y="578" width="490" height="392" key="scopes" timestamp="1602087338533">
+      <screen x="67" y="0" width="2493" height="1440" />
+    </state>
+    <state x="1105" y="578" width="490" height="392" key="scopes/-1853.130.1853.1080/67.0.2493.1440@67.0.2493.1440" timestamp="1602087338533" />
   </component>
 </project>

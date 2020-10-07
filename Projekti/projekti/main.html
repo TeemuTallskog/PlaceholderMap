@@ -9,25 +9,37 @@
 <body>
 <main class="main">
     <header>
-        <img src="iconit/logo-icon.png" alt="logoT">
+        <img src="iconit/menu-icon.png" alt="menuIcon" id="menuIcon">
+        <img src="iconit/logo-icon.png" alt="logoT" id="siteLogo">
     </header>
-    <nav id="navId">
-        <label for ="tapahtumaCheck">Tapahtumat</label><input name="tapahtumaCheck" type="checkbox" id="tapahtumaCheck">
-        <label for ="eventCheck">Aktiviteetit</label><input name="eventCheck" type="checkbox" id="eventCheck">
-        <label for ="lipunmyyntiCheck">HSL-Lipunmyynti pisteet</label><input name="lipunmyyntiCheck" type="checkbox" id="lipunmyyntiCheck">
-        <button id="sortNappi">Päivitä</button>
+    <nav class="hiddenNav" id="navId">
+         <div id="tpCk">
+            <label for ="tapahtumaCheck">Tapahtumat</label><input name="tapahtumaCheck" type="checkbox" id="tapahtumaCheck">
+         </div>
+         <div id="evntCk">
+            <label for ="eventCheck">Aktiviteetit</label><input name="eventCheck" type="checkbox" id="eventCheck">
+         </div>
+            <div id="lippuCk">
+            <label for ="lipunmyyntiCheck">HSL-Lipunmyynti pisteet</label><input name="lipunmyyntiCheck" type="checkbox" id="lipunmyyntiCheck">
+            </div>
+         <button id="sortNappi">Päivitä</button>
     </nav>
     <div id="kartta"></div>
 </main>
-<footer>
+<footer id="footerId">
     <article class="tapahtumatiedotT">
-        <a id="tapahtumaLinkki"><h3 id="tapahtumanNimiT"></h3></a>
-        <a id="reittiopasLinkki"><img id="reittiopasKuva"></a>
-        <p id="tapahtumanAjankohta"></p>
-        <h4 id="tapahtumanOsoite"></h4>
-        <p id="tapahtumanKaupunkiT"></p>
-        <div id="tapahtumanSummary"></div>
+        <h3 id="tapahtumanNimiT"><a id="tapahtumaLinkki"></a></h3>
         <figure id="tapahtumaKuva"></figure>
+        <div id="tapahtumaTeksti">
+            <h4 id="tapahtumanOsoite"></h4>
+            <p id="tapahtumanKaupunkiT"></p>
+            <hr>
+            <p id="tapahtumanAjankohta"></p>
+            <hr>
+            <div id="tapahtumanSummary"></div>
+        </div>
+        <a id="reittiopasLinkki"><img src="" id="reittiopasKuva" alt="reittiopasimg" style="display: none"></a>
+        <a id="googleNav"><img src ="" id="googleIcon" alt="GoogleImg" style="display: none"></a>
     </article>
 </footer>
 
