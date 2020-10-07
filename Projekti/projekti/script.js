@@ -43,40 +43,43 @@ const greenIcon = L.icon({                   // vihreä ikoni
   iconUrl: 'iconit/marker-green.png',
   iconSize: [50,41],  //iconin koko
   iconAnchor: [14, 41],     // point of the icon which will correspond to marker's location
-  popupAnchor:  [-3, -41] // point from which the popup should open relative to the iconAnchor
+  popupAnchor:  [10, -41] // point from which the popup should open relative to the iconAnchor
 });
 const redIcon = L.icon({                    //punainen iconi esim. L.marker([lat, long], {icon: redIcon}).addTo(kartta)}
   iconUrl: 'iconit/marker-red.png',
   iconSize: [50,41],  //iconin koko
   iconAnchor: [14, 41],    // point of the icon which will correspond to marker's location
-  popupAnchor:  [-3, -41] // point from which the popup should open relative to the iconAnchor
+  popupAnchor:  [10, -41] // point from which the popup should open relative to the iconAnchor
 });
 const VHSLpurpleIcon = L.icon({                    //purplehsl iconi esim. L.marker([lat, long], {icon: redIcon}).addTo(kartta)}
   iconUrl: 'iconit/HSL-marker-purple.png',
   iconSize: [50,41],  //iconin koko
   iconAnchor: [14, 41],    // point of the icon which will correspond to marker's location
-  popupAnchor:  [-3, -41] // point from which the popup should open relative to the iconAnchor
+  popupAnchor:  [10, -41] // point from which the popup should open relative to the iconAnchor
 });
 const VHSLpinkIcon = L.icon({                    //pinkkihsl iconi esim. L.marker([lat, long], {icon: redIcon}).addTo(kartta)}
   iconUrl: 'iconit/HSL-marker-pink.png',
   iconSize: [50,41],  //iconin koko
   iconAnchor: [14, 41],    // point of the icon which will correspond to marker's location
-  popupAnchor:  [-3, -41] // point from which the popup should open relative to the iconAnchor
+  popupAnchor:  [10, -41] // point from which the popup should open relative to the iconAnchor
 });
 const VHSLblueIcon = L.icon({                    //sininenhsl iconi esim. L.marker([lat, long], {icon: redIcon}).addTo(kartta)}
   iconUrl: 'iconit/HSL-marker-blue.png',
   iconSize: [50,41],  //iconin koko
   iconAnchor: [14, 41],    // point of the icon which will correspond to marker's location
-  popupAnchor:  [-3, -41] // point from which the popup should open relative to the iconAnchor
+  popupAnchor:  [10, -41] // point from which the popup should open relative to the iconAnchor
 });
 const VHSLlightblueIcon = L.icon({                    //vaaleansininenhsl iconi esim. L.marker([lat, long], {icon: redIcon}).addTo(kartta)}
   iconUrl: 'iconit/HSL-marker-lightblue.png',
   iconSize: [50,41],  //iconin koko
   iconAnchor: [14, 41],    // point of the icon which will correspond to marker's location
-  popupAnchor:  [-3, -41] // point from which the popup should open relative to the iconAnchor
+  popupAnchor:  [10, -41] // point from which the popup should open relative to the iconAnchor
 });
 
 //------------------------------------------------------------------------------------------------------------------
+
+
+let markerGroup = L.layerGroup().addTo(kartta);  //Laittaa markkerit grouppiin, että ne voi tyhjentää
 
 
 //haetaan tapahtumien tiedot myHelsinki API:sta
@@ -102,7 +105,7 @@ fetch(proxyOsoite + myHelsinkiEventsOsoite).then((vastaus) => {
       if (includecheckT === false) {                                                 //Poistaa duplicatet
         let popupInfoT = myHelsinkiTapahtumat.data[i].name.fi;                       // tapahtuman nimi suomeksi
         checklonlatT.push(latT + '-' + longT);                                     //lisää lon + lat listaan, jotta ei tule duplicateja
-        L.marker([latT, longT], {icon: redIcon}).addTo(kartta).bindPopup(popupInfoT).          //tapahtuman nimi popupissa
+        L.marker([latT, longT], {icon: redIcon}).addTo(markerGroup).bindPopup(popupInfoT).          //tapahtuman nimi popupissa
         on('click', function(){
           document.getElementById('tapahtumanNimiT').innerHTML = myHelsinkiTapahtumat.data[i].name.fi;  //tapahtuman nimi
           document.getElementById('tapahtumanAjankohta').innerHTML = myHelsinkiTapahtumat.data[i].event_dates.starting_day;
@@ -110,13 +113,26 @@ fetch(proxyOsoite + myHelsinkiEventsOsoite).then((vastaus) => {
           document.getElementById('tapahtumanKaupunkiT').innerHTML = myHelsinkiTapahtumat.data[i].location.address.locality;  //tapahtuman Kaupunki
           document.getElementById('tapahtumanSummary').innerHTML = myHelsinkiTapahtumat.data[i].description.body; //tapahtuman kuvaus
           document.getElementById('tapahtumaLinkki').href = innerHTML = myHelsinkiTapahtumat.data[i].info_url;  //lisää tapahtuman linkin, tapahtuman nimeen
+          document.getElementById("tapahtumaKuva").innerHTML = "";  //tyhjentää aijemat kuvat
+          if (myHelsinkiTapahtumat.data[i].description.images !== null){   //liittää tapahtumaan kuuluvat kuvat
+            for(let te = 0; myHelsinkiTapahtumat.data[i].description.images.length > 0; te++){
+              let tapahtumaUrl = myHelsinkiTapahtumat.data[i].description.images[te].url;
+              document.getElementById("tapahtumaKuva").innerHTML +=`
+                  <figure>
+                    <img src="${tapahtumaUrl}" height="400px" width="400px" alt ="kuva">
+                    <figcaption>${myHelsinkiTapahtumat.data[i].description.images[te].copyright_holder}</figcaption>
+                  </figure>
+                  `;
+            }
+          }
         })
       }
       else{}
     }
 }).catch(function(error){console.log(error);
 })}
-myHelsinkiEvents();
+
+
 
 //haetaan tapahtumien tiedot myHelsinki API:sta
 function myHelsinkiActivities(){
@@ -127,6 +143,9 @@ function myHelsinkiActivities(){
   }).then(function(myHelsinkiTapahtumat){
     let checklonlatT = [];
     console.log(myHelsinkiTapahtumat);
+    /**
+     * @param {object} myHelsinkiTapahtumat.data[i].description.images[te].url - imageurl.
+     */
     for (let i = 0; i < myHelsinkiTapahtumat.data.length; i++){ //Poimii listasta koordinantit jokaiseen tapahtumaan ja tekee siitä markerin
       let longT = myHelsinkiTapahtumat.data[i].location.lon;    //longitude
       let latT = myHelsinkiTapahtumat.data[i].location.lat;     //latitude
@@ -134,7 +153,7 @@ function myHelsinkiActivities(){
       if (includecheckT === false) {                                                 //Poistaa duplicatet
         let popupInfoT = myHelsinkiTapahtumat.data[i].name.fi;                       // tapahtuman nimi suomeksi
         checklonlatT.push(latT + '-' + longT);                                     //lisää lon + lat listaan, jotta ei tule duplicateja
-        L.marker([latT, longT], {icon: greenIcon}).addTo(kartta).bindPopup(popupInfoT).          //tapahtuman nimi popupissa
+        L.marker([latT, longT], {icon: greenIcon}).addTo(markerGroup).bindPopup(popupInfoT).          //tapahtuman nimi popupissa
             on('click', function(){
               document.getElementById('tapahtumanNimiT').innerHTML = myHelsinkiTapahtumat.data[i].name.fi;  //tapahtuman nimi
               document.getElementById('tapahtumanAjankohta').innerHTML = myHelsinkiTapahtumat.data[i].where_when_duration.where_and_when + '<br>' + 'Kesto: ' + myHelsinkiTapahtumat.data[i].where_when_duration.duration; // Aktiviteetin aukiolo ja kesto
@@ -142,13 +161,25 @@ function myHelsinkiActivities(){
               document.getElementById('tapahtumanKaupunkiT').innerHTML = myHelsinkiTapahtumat.data[i].location.address.locality;  //tapahtuman Kaupunki
               document.getElementById('tapahtumanSummary').innerHTML = myHelsinkiTapahtumat.data[i].description.body; //tapahtuman kuvaus
               document.getElementById('tapahtumaLinkki').href = innerHTML = myHelsinkiTapahtumat.data[i].info_url;  //lisää tapahtuman linkin, tapahtuman nimeen
+              document.getElementById("tapahtumaKuva").innerHTML = "";  //tyhjentää aijemat kuvat
+              if (myHelsinkiTapahtumat.data[i].description.images !== null){    //liittää tapahtumaan kuuluvat kuvat
+                for(let te = 0; myHelsinkiTapahtumat.data[i].description.images.length > 0; te++){
+                  let tapahtumaUrl = myHelsinkiTapahtumat.data[i].description.images[te].url;
+                  document.getElementById("tapahtumaKuva").innerHTML +=`
+                  <figure>
+                    <img src="${tapahtumaUrl}" height="400px" width="400px" alt ="kuva">
+                    <figcaption>${myHelsinkiTapahtumat.data[i].description.images[te].copyright_holder}</figcaption>
+                  </figure>
+                  `;
+                }
+              }
             })
       }
       else{}
     }
   }).catch(function(error){console.log(error);
   })}
-myHelsinkiActivities();
+
 
 
 
@@ -189,19 +220,19 @@ function VHSLlipunmyynti() {
         //lisää markerin kartalle ja antaa sille popupiin tietoja
         //samalla antaa markerille värin
         if (VHSLPKpisteet[Vi].properties.Tyyppi === 'Palvelupiste') {
-            L.marker([Vlong, Vlat],{icon: VHSLpurpleIcon}).addTo(kartta).bindPopup(VHSLPKpisteet[Vi].properties.Tyyppi + '</br>' + VHSLPKpisteet[Vi].properties.Address_fi + '</br>' + VHSLPKpisteet[Vi].properties.City_fi + ' Vyöhyke: ' + VHSLPKpisteet[Vi].properties.Zone + '</br>' + Vaddhelp)
+            L.marker([Vlong, Vlat],{icon: VHSLpurpleIcon}).addTo(markerGroup).bindPopup(VHSLPKpisteet[Vi].properties.Tyyppi + '</br>' + VHSLPKpisteet[Vi].properties.Address_fi + '</br>' + VHSLPKpisteet[Vi].properties.City_fi + ' Vyöhyke: ' + VHSLPKpisteet[Vi].properties.Zone + '</br>' + Vaddhelp)
 
         } if (VHSLPKpisteet[Vi].properties.Tyyppi === 'Myyntipiste') {
-            L.marker([Vlong, Vlat],{icon: VHSLpinkIcon}).addTo(kartta).bindPopup(VHSLPKpisteet[Vi].properties.Tyyppi + '</br>' + VHSLPKpisteet[Vi].properties.Address_fi + '</br>' + VHSLPKpisteet[Vi].properties.City_fi + ' Vyöhyke: ' + VHSLPKpisteet[Vi].properties.Zone + '</br>' + Vaddhelp)
+            L.marker([Vlong, Vlat],{icon: VHSLpinkIcon}).addTo(markerGroup).bindPopup(VHSLPKpisteet[Vi].properties.Tyyppi + '</br>' + VHSLPKpisteet[Vi].properties.Address_fi + '</br>' + VHSLPKpisteet[Vi].properties.City_fi + ' Vyöhyke: ' + VHSLPKpisteet[Vi].properties.Zone + '</br>' + Vaddhelp)
 
         } if (VHSLPKpisteet[Vi].properties.Tyyppi === 'Monilippuautomaatti') {
-            L.marker([Vlong, Vlat],{icon: VHSLblueIcon}).addTo(kartta).bindPopup(VHSLPKpisteet[Vi].properties.Tyyppi + '</br>' + VHSLPKpisteet[Vi].properties.Address_fi + '</br>' + VHSLPKpisteet[Vi].properties.City_fi + ' Vyöhyke: ' + VHSLPKpisteet[Vi].properties.Zone + '</br>' + Vaddhelp)
+            L.marker([Vlong, Vlat],{icon: VHSLblueIcon}).addTo(markerGroup).bindPopup(VHSLPKpisteet[Vi].properties.Tyyppi + '</br>' + VHSLPKpisteet[Vi].properties.Address_fi + '</br>' + VHSLPKpisteet[Vi].properties.City_fi + ' Vyöhyke: ' + VHSLPKpisteet[Vi].properties.Zone + '</br>' + Vaddhelp)
 
         } if (VHSLPKpisteet[Vi].properties.Tyyppi === 'Kertalippuautomaatti') {
-            L.marker([Vlong, Vlat],{icon: VHSLlightblueIcon}).addTo(kartta).bindPopup(VHSLPKpisteet[Vi].properties.Tyyppi + '</br>' + VHSLPKpisteet[Vi].properties.Address_fi + '</br>' + VHSLPKpisteet[Vi].properties.City_fi + ' Vyöhyke: ' + VHSLPKpisteet[Vi].properties.Zone + '</br>' + Vaddhelp)
+            L.marker([Vlong, Vlat],{icon: VHSLlightblueIcon}).addTo(markerGroup).bindPopup(VHSLPKpisteet[Vi].properties.Tyyppi + '</br>' + VHSLPKpisteet[Vi].properties.Address_fi + '</br>' + VHSLPKpisteet[Vi].properties.City_fi + ' Vyöhyke: ' + VHSLPKpisteet[Vi].properties.Zone + '</br>' + Vaddhelp)
 
         } if (VHSLPKpisteet[Vi].properties.Tyyppi === 'Pysäköintiautomaatti') {
-            L.marker([Vlong, Vlat],{icon: VHSLlightblueIcon}).addTo(kartta).bindPopup(VHSLPKpisteet[Vi].properties.Tyyppi + '</br>' + VHSLPKpisteet[Vi].properties.Address_fi + '</br>' + VHSLPKpisteet[Vi].properties.City_fi + ' Vyöhyke: ' + VHSLPKpisteet[Vi].properties.Zone + '</br>' + Vaddhelp)
+            L.marker([Vlong, Vlat],{icon: VHSLlightblueIcon}).addTo(markerGroup).bindPopup(VHSLPKpisteet[Vi].properties.Tyyppi + '</br>' + VHSLPKpisteet[Vi].properties.Address_fi + '</br>' + VHSLPKpisteet[Vi].properties.City_fi + ' Vyöhyke: ' + VHSLPKpisteet[Vi].properties.Zone + '</br>' + Vaddhelp)
 
         }
 
@@ -209,6 +240,28 @@ function VHSLlipunmyynti() {
 
  }).catch(function(error){console.log(error);
 })}
-VHSLlipunmyynti();
 
-//VILI
+
+
+//----------------------Filter Nappi ------------------
+
+const paivitysNappiT = document.getElementById('sortNappi');
+let tapahtumaCheckBox = document.getElementById('tapahtumaCheck');
+let eventCheckBox = document.getElementById('eventCheck');
+let lipunmyyntiCheckBox = document.getElementById('lipunmyyntiCheck');
+paivitysNappiT.addEventListener('click', function(){
+  markerGroup.clearLayers();  //tyhjentää kaikki markkerit
+  if(tapahtumaCheckBox.checked === true){
+    myHelsinkiEvents();
+  }
+
+  if(eventCheckBox.checked === true){
+    myHelsinkiActivities();
+  }
+  if(lipunmyyntiCheckBox.checked === true){
+    VHSLlipunmyynti();
+  }
+})
+
+
+

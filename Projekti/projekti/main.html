@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -9,17 +9,27 @@
 <body>
 <main class="main">
     <header>
+        <img src="iconit/logo-icon.png" alt="logoT">
     </header>
+    <nav id="navId">
+        <label for ="tapahtumaCheck">Tapahtumat</label><input name="tapahtumaCheck" type="checkbox" id="tapahtumaCheck">
+        <label for ="eventCheck">Aktiviteetit</label><input name="eventCheck" type="checkbox" id="eventCheck">
+        <label for ="lipunmyyntiCheck">HSL-Lipunmyynti pisteet</label><input name="lipunmyyntiCheck" type="checkbox" id="lipunmyyntiCheck">
+        <button id="sortNappi">Päivitä</button>
+    </nav>
     <div id="kartta"></div>
+</main>
+<footer>
     <article class="tapahtumatiedotT">
         <a id="tapahtumaLinkki"><h3 id="tapahtumanNimiT"></h3></a>
         <p id="tapahtumanAjankohta"></p>
         <h4 id="tapahtumanOsoite"></h4>
         <p id="tapahtumanKaupunkiT"></p>
         <div id="tapahtumanSummary"></div>
+        <figure id="tapahtumaKuva"></figure>
     </article>
-</main>
-<footer></footer>
+</footer>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
 <script src="script.js"></script>
