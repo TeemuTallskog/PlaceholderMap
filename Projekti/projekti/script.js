@@ -115,7 +115,7 @@ fetch(proxyOsoite + myHelsinkiEventsOsoite).then((vastaus) => {
           document.getElementById('tapahtumaLinkki').href = innerHTML = myHelsinkiTapahtumat.data[i].info_url;  //lisää tapahtuman linkin, tapahtuman nimeen
           document.getElementById("tapahtumaKuva").innerHTML = "";  //tyhjentää aijemat kuvat
           if (myHelsinkiTapahtumat.data[i].description.images !== null){   //liittää tapahtumaan kuuluvat kuvat
-            for(let te = 0; myHelsinkiTapahtumat.data[i].description.images.length > 0; te++){
+            for(let te = 0; myHelsinkiTapahtumat.data[i].description.images.length > te; te++){
               let tapahtumaUrl = myHelsinkiTapahtumat.data[i].description.images[te].url;
               document.getElementById("tapahtumaKuva").innerHTML +=`
                   <figure>
@@ -163,7 +163,7 @@ function myHelsinkiActivities(){
               document.getElementById('tapahtumaLinkki').href = innerHTML = myHelsinkiTapahtumat.data[i].info_url;  //lisää tapahtuman linkin, tapahtuman nimeen
               document.getElementById("tapahtumaKuva").innerHTML = "";  //tyhjentää aijemat kuvat
               if (myHelsinkiTapahtumat.data[i].description.images !== null){    //liittää tapahtumaan kuuluvat kuvat
-                for(let te = 0; myHelsinkiTapahtumat.data[i].description.images.length > 0; te++){
+                for(let te = 0; myHelsinkiTapahtumat.data[i].description.images.length > te; te++){
                   let tapahtumaUrl = myHelsinkiTapahtumat.data[i].description.images[te].url;
                   document.getElementById("tapahtumaKuva").innerHTML +=`
                   <figure>
@@ -241,7 +241,7 @@ function VHSLlipunmyynti() {
  }).catch(function(error){console.log(error);
 })}
 
-
+myHelsinkiActivities();
 
 //----------------------Filter Nappi ------------------
 
