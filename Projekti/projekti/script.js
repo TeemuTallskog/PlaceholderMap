@@ -131,7 +131,7 @@ const VHSLlightblueIcon = L.icon({                    //vaaleansininenhsl iconi 
 
 let markerGroup = L.layerGroup().addTo(kartta);  //Laittaa markkerit grouppiin, että ne voi tyhjentää
 
-function footerStyling(latT,longT,myHelsinkiTapahtumat,i){
+function footerStyling(latT,longT,myHelsinkiTapahtumat,i){ // tulostaa footterin
   document.getElementById("footerId").innerHTML =`
   <article class="tapahtumatiedotT">
             <h3 id="tapahtumanNimiT"><a id="tapahtumaLinkki"></a></h3>
@@ -146,10 +146,9 @@ function footerStyling(latT,longT,myHelsinkiTapahtumat,i){
             </div>
             <a id="reittiopasLinkki"><img src="iconit/reittiopas.png" id="reittiopasKuva" alt="reittiopasimg" style="display: none"></a>
             <a id="googleNav"><img src ="iconit/google-maps-icon.png" id="googleIcon" alt="GoogleImg" style="display: none"></a>
-        </article>
-  `
+        </article>`;
   document.getElementById('footerId').className = "footerVisible";
-  document.getElementById('reittiopasKuva').src = "iconit/reittiopas.png";                                                                            //reittiopas logo ja linkki kuvasta reittioppaaseen kyseiselle reitille
+  document.getElementById('reittiopasKuva').src = "iconit/reittiopas.png";  //reittiopas logo ja linkki kuvasta reittioppaaseen kyseiselle reitille
   document.getElementById('reittiopasKuva').style.display = "block";
   document.getElementById('reittiopasLinkki').href = "https://reittiopas.hsl.fi/reitti/" + currentLat + "," + currentLon + "/" + latT + "," + longT;
   document.getElementById('googleIcon').src = "iconit/google-maps-icon.png";
@@ -178,7 +177,7 @@ function kuvaForLoop(myHelsinkiTapahtumat,i){
   }
 }
 
-function imageIfstatements(i,myHelsinkiTapahtumat){
+function imageIfstatements(i,myHelsinkiTapahtumat){ //tarkistaa että kuvat ovat valideja
   if(myHelsinkiTapahtumat.data[i].description.images !== null){
     if (myHelsinkiTapahtumat.data[i].description.images.length !== 0){    //liittää tapahtumaan kuuluvat kuvat
       kuvaForLoop(myHelsinkiTapahtumat,i);

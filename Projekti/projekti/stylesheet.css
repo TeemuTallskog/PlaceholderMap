@@ -127,7 +127,6 @@ header{
     height: 600px;
     border-radius: 10px;
     margin-top: 25px;
-    position: absolute;
     top: 0;
     left: 0;
 }
@@ -135,7 +134,6 @@ header{
     width: 45%;
     border-radius: 10px;
     align-content: center;
-    display: flex;
     flex-flow: column wrap;
     position: relative;
 }
@@ -174,13 +172,14 @@ header{
     display: none;
 }
 
-footer{
+#footerId{
     text-align: center;
     background-color: #279AF1;
     width: 45%;
     border-radius: 10px;
     margin-top: 25px;
     margin-left: 25px;
+    order: 3;
 }
 .footerHidden{
     visibility: hidden;
@@ -191,14 +190,22 @@ footer{
 .footerVisible{
     visibility: visible;
 }
+#mainElements{
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+    justify-content: center;
+}
+
 
 #youtubeVideo{
-    width: 100%;
+    width: 45%;
     margin-top: 25px;
-    position: absolute;
+    margin-left: 25px;
     top: 625px;
     margin-bottom: 25px;
     border-radius: 10px;
+    order: 2;
 }
 #tapahtumatiedotT{
     display: flex;
@@ -306,10 +313,10 @@ footer{
 }
 
 @media only screen and (max-width: 1000px) {
-    footer{
+    #footerId{
         width: 90%;
-        position: absolute;
-        top: 1133px;
+        position: relative;
+        top: 0;
         margin: 25px 5% 25px 5%;
         order: 2;
     }
@@ -325,10 +332,12 @@ footer{
         order: 1;
     }
     #youtubeVideo{
-        width: 100%;
-        margin-top: 25px;
+        width: 90%;
         margin-right: 0;
         margin-left: 0;
         order: 3;
     }
+    #mainElements:nth-of-type(1){order: 1;}
+    #mainElements:nth-of-type(2){order: 3;}
+    #mainElements:nth-of-type(3){order: 2;}
     }
