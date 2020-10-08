@@ -244,6 +244,7 @@ function myHelsinkiPlaces(etaisyysInput){
               document.getElementById('reittiopasKuva').style.display = "block";
               document.getElementById('reittiopasLinkki').href = "https://reittiopas.hsl.fi/reitti/" + currentLat + "," + currentLon + "/" + latT + "," + longT;
               document.getElementById('googleIcon').src = "iconit/google-maps-icon.png";
+	            document.getElementById('googleIcon').style.display = "block";
               document.getElementById('googleNav').href = `https://www.google.com/maps/dir/?api=1&origin=${currentLat},${currentLon}&destination=${latT},${longT}&travelmode=driving`;
               document.getElementById('tapahtumanOsoite').innerHTML = myHelsinkiTapahtumat.data[i].location.address.street_address;  //tapahtuman osoite
               document.getElementById('tapahtumanKaupunkiT').innerHTML = myHelsinkiTapahtumat.data[i].location.address.locality;  //tapahtuman Kaupunki

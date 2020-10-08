@@ -48,7 +48,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/OneDrive/Työpöytä/kuvasivu" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="JavaScript.Libraries" />
@@ -71,7 +71,8 @@
       <workItem from="1601486054941" duration="22000" />
       <workItem from="1601552220977" duration="17176000" />
       <workItem from="1601639545603" duration="1158000" />
-      <workItem from="1602058694715" duration="64651000" />
+      <workItem from="1602058694715" duration="64051000" />
+      <workItem from="1602144577254" duration="553000" />
     </task>
     <servers />
   </component>

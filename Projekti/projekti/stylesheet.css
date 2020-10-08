@@ -86,6 +86,10 @@ main{
     margin-left: 25px;
 }
 
+#paikatBox:hover{
+    cursor: pointer;
+}
+
 header{
     background-color: #131112;
     flex-wrap: wrap;
@@ -304,7 +308,7 @@ footer{
     footer{
         width: 90%;
         position: absolute;
-        top: 1100px;
+        top: 1133px;
         margin: 25px 5% 25px 5%;
     }
     #mapContainer{
@@ -323,4 +327,4 @@ footer{
         margin-right: 0;
         margin-left: 0;
     }
-}
+    }

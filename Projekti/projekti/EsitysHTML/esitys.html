@@ -10,6 +10,7 @@
 <h1>Projekti</h1>
 <br>
 <h3>Ryhmän jäsenet: Teemu & Vili</h3>
+<a href="https://users.metropolia.fi/~teemuot/tehtavat/Projekti/projekti/projektintekijat/">Kuvat</a>
 <br>
 <p>Sovelluksestamme Löytää pääkaupunki seudulla olevia tapahtumia, paikkoja ja aktiviteettejä, Sovelluksen kautta myös löytää lähimmät HSL:län lippuautomaatit, sekä palvelupisteet.</p>
 <p>Sovelluksemme on suunnattu nuorista, vanhoihin, jotka ovat etsimässä tekemistä pääkaupunki seudulla.</p>
@@ -25,6 +26,7 @@
     <li>http://open-api.myhelsinki.fi/v1/events/?distance_filer=lat%2Clon%2Crange</li>
     <li>http://open-api.myhelsinki.fi/v1/places/?distance_filer=lat%2Clon%2Crange</li>
 </ul>
+<img src="omah.jpg">
 
 <br>
 <a href="https://www.hsl.fi/avoindata" ><h4>HSL Avoin data:</h4></a>
@@ -33,6 +35,7 @@
 <ul>
     <li>https://opendata.arcgis.com/datasets/727c6618a0814f8ba21bb00c9cb34019_0.geojson</li>
 </ul>
+<img src="hslimg.jpg">
 <br>
 <a href="https://leafletjs.com/"><h4>Leaflet OpenStreetMap</h4></a>
 <p>Karttamme sovelluksessa perustuu leafletin avoimeen dataan</p>
@@ -76,6 +79,11 @@
 
   navigator.geolocation.getCurrentPosition(success, error, options);
 </script>
+<p> const kartta = L.map('kartta');<br>
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {<br>
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',<br>
+  }).addTo(kartta);</p>
+
 <br>
 <h4>CORS Anywhere</h4>
 <p>Viimeisenä jouduin käyytämään https://cors-anywhere.herokuapp.com/ Proxy API:ta, jotta pystyin käyttämään MyHelsinki API:ta.
@@ -91,6 +99,8 @@ CORS Anywhere enabloi cross-origin requestit jos niiden kanssa on ongelmaa.</p>
 <br>
 
 <p>Sovelluksessa käytin lisäksi myös Lightboxia</p>
+
+<a href="https://users.metropolia.fi/~teemuot/tehtavat/Projekti/projekti/Projekti.html"><p>Projektimme</p></a>
 
 </body>
 </html>
