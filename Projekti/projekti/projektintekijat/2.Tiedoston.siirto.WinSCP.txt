@@ -1,0 +1,16 @@
+Tiedostojen siirto palvelimelle
+- tarvittava ohjelma: winscp / cyberduck (filezilla jne...)
+- suositeltava ohjema: putty (tai joku muu terminaali)
+- yhteyden muodostaminen:
+	- Protokolla: SFTP, portti 22
+	- osoite: shell.metropolia.fi
+- web-sivujen kansio:
+	- public_html ja sen alikansiot
+- osoite web sivuille:
+	- users.metropolia.fi/~tunnus/[kansio][/][tiedosto]
+- Tarvittaessa säädä oikeudet tiedostoille ja kansioille 
+	- oikea hiirennäpy/properties (tai info)/permissions
+	- 755 (tai 0755)
+	- puttyllä/terminaalilla: 
+		- (mäkillä: ssh tunnus@shell.metropolia.fi)
+		- chmod -R 755 public_html/kansion_nimi
