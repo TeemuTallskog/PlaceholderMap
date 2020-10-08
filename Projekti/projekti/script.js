@@ -371,24 +371,26 @@ paivitysNappiT.addEventListener('click', function(){
 //---------Sidebad------------------
 const sidebar = document.querySelector('.sidebar');
 const mainSidebar = document.querySelector('.main-sidebar');
+const aboutSection = document.querySelector('.abouthidden');
 document.querySelector('button').onclick = function () {
   sidebar.classList.toggle('sidebar_small');
-  mainSidebar.classList.toggle('main-sidebar_large')
+  mainSidebar.classList.toggle('main-sidebar_large');
+  aboutSection.classList.toggle('aboutLink');
 
     if (sidebar.className === "sidebar sidebar_small") {
-      setTimeout(function (){document.getElementById("kartta").style.zIndex = "12"},1000);
+      setTimeout(function (){document.getElementById("kartta").style.zIndex = "12"},500);
     }
     else {
       document.getElementById("kartta").style.zIndex = "0";
     }
   if (sidebar.className === "sidebar sidebar_small") {
-    setTimeout(function (){document.getElementById("bottomFooter").style.zIndex = "12"},1000);
+    setTimeout(function (){document.getElementById("bottomFooter").style.zIndex = "12"},500);
   }
   else {
     document.getElementById("bottomFooter").style.zIndex = "0";
   }
   if (sidebar.className === "sidebar sidebar_small") {
-    setTimeout(function (){document.getElementById("footerId").style.zIndex = "12"},1000);
+    setTimeout(function (){document.getElementById("footerId").style.zIndex = "12"},500);
   }
   else {
     document.getElementById("footerId").style.zIndex = "0";
