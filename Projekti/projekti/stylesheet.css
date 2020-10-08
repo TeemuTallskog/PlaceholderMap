@@ -310,6 +310,7 @@ footer{
         position: absolute;
         top: 1133px;
         margin: 25px 5% 25px 5%;
+        order: 2;
     }
     #mapContainer{
         width: 90%;
@@ -320,11 +321,13 @@ footer{
         margin-top: 25px;
         margin-right: 0;
         margin-left: 0;
+        order: 1;
     }
     #youtubeVideo{
         width: 100%;
         margin-top: 25px;
         margin-right: 0;
         margin-left: 0;
+        order: 3;
     }
     }

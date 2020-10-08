@@ -1,3 +1,4 @@
+// jshint ignore: start
 let paikka = null;
 let currentLon = '';
 let currentLat = '';
@@ -20,7 +21,7 @@ function success(pos) {
   const crd = pos.coords;
   paikka = crd;
   // päivitä kartta
-  paivitaKartta(crd, 13);
+  paivitaKartta(crd, 10);
   currentLon = pos.coords.longitude;
   currentLat = pos.coords.latitude
   L.marker([currentLat, currentLon], {icon: imHereMarker}).addTo(kartta).bindPopup('Olet tässä').openPopup();  // tekee markerin ja popupin, joka näyttää nykyisen paikkasi.
