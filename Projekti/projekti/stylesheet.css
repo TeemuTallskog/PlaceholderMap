@@ -30,6 +30,50 @@ main{
     flex-flow: row wrap;
     justify-content: center;
 }
+.grid-container {
+    position: fixed;
+    width: 100%;
+    margin: 0 auto;
+    height: 100%;
+    z-index: 6;
+    display: flex;
+    border: 2px solid rgba(0, 0, 0, .4);
+    transition: 1s ease;
+}
+.sidebar {
+    width: 30%;
+    height: 100%;
+    background-color: #279AF1;
+    transition: 1s ease;
+    position: relative;
+}
+.main-sidebar {
+    width: 70%;
+    height: 100%;
+    transition: 1s ease;
+}
+.main-sidebar_large {
+    width: 0;
+}
+.sidebar_small {
+    width: 0;
+}
+.sidebar_button {
+    position: absolute;
+    border: none;
+    height: 40px;
+    width: 40px;
+    outline: none;
+    border-radius: 50%;
+    box-shadow: 0 1px 4px 1px rgba(0 ,0, 0, .3);
+    left: 100%;
+    top: 6rem;
+    transform: translateX(-50%);
+    cursor: pointer;
+}
+.sidebar_button:hover{
+    background-color: gray;
+}
 
 #navId{
     background-color: #f7f7ff;
@@ -38,8 +82,10 @@ main{
     align-items: center;
     font-family: 'Source Sans Pro', sans-serif;
     top: 70px;
+    margin-top: 2.5%;
     flex-flow: row wrap;
     justify-content: space-evenly;
+    border-radius: 10px;
 }
 .divFlex{
     display: flex;
@@ -67,6 +113,7 @@ main{
     text-align: center;
     border-radius: 7px;
     padding: 5px;
+    width: 120px;
 }
 #sortNappi:hover{
     background-color: gray;
@@ -96,7 +143,7 @@ header{
     width: 100%;
     height: 50px;
     padding: 10px;
-    z-index: 2;
+    z-index: 10;
     top: 0;
     left: 0;
 }
@@ -115,6 +162,10 @@ header{
 }
 #siteLogo{
     height: 40px;
+    flex-wrap: wrap;
+    width: 50px;
+    position: relative;
+    z-index: -3;
 }
 #placeHolder{
     height: 40px;
@@ -129,9 +180,12 @@ header{
     margin-top: 25px;
     top: 0;
     left: 0;
+    z-index: 12;
 }
 #mapContainer{
-    width: 45%;
+    width: 42.5%;
+    margin-right: 2.5%;
+    margin-left: 2.5%;
     border-radius: 10px;
     align-content: center;
     flex-flow: column wrap;
@@ -172,13 +226,21 @@ header{
     display: none;
 }
 
+footer{
+    width: 42.5%;
+    top: 625px;
+    margin: 25px 2.5%;
+    border-radius: 10px;
+    order: 2;
+    z-index: 10;
+}
+
 #footerId{
     text-align: center;
     background-color: #279AF1;
-    width: 45%;
+    width: 90%;
     border-radius: 10px;
-    margin-top: 25px;
-    margin-left: 25px;
+    margin: 25px 2.5%;
     order: 3;
 }
 .footerHidden{
@@ -189,6 +251,7 @@ header{
 }
 .footerVisible{
     visibility: visible;
+    margin-bottom: 2.5%;
 }
 #mainElements{
     display: flex;
@@ -199,13 +262,8 @@ header{
 
 
 #youtubeVideo{
-    width: 45%;
-    margin-top: 25px;
-    margin-left: 25px;
-    top: 625px;
-    margin-bottom: 25px;
+    width: 100%;
     border-radius: 10px;
-    order: 2;
 }
 #tapahtumatiedotT{
     display: flex;
@@ -317,8 +375,11 @@ header{
         width: 90%;
         position: relative;
         top: 0;
-        margin: 25px 5% 25px 5%;
+        margin-top: 0;
         order: 2;
+    }
+    .footerVisible{
+        margin-bottom: 2.5%;
     }
     #mapContainer{
         width: 90%;
@@ -326,18 +387,29 @@ header{
     }
     #kartta{
         width: 100%;
-        margin-top: 25px;
-        margin-right: 0;
-        margin-left: 0;
+        margin: 2.5% 0;
         order: 1;
+        z-index: 12;
     }
-    #youtubeVideo{
+    footer{
         width: 90%;
         margin-right: 0;
         margin-left: 0;
+        margin-top: 0;
         order: 3;
+        display: flex;
+        flex-flow: column wrap-reverse;
     }
     #mainElements:nth-of-type(1){order: 1;}
     #mainElements:nth-of-type(2){order: 3;}
     #mainElements:nth-of-type(3){order: 2;}
+    #navId{
+        order: 1;
+        margin-top: 0;
+        margin-bottom: 2.5%;
+    }
+    #youtubeVideo{order: 2;}
+    .footerHidden{
+        margin-bottom: 0;
+    }
     }

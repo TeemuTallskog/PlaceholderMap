@@ -11,50 +11,59 @@
 </head>
 <body>
 <main class="main">
+    <div class="grid-container">
+        <div class="sidebar sidebar_small">
+            <button class="sidebar_button">
+                ☰
+            </button>
+        </div>
+        <div class="main-sidebar main-sidebar_large"></div>
+    </div>
     <header>
-        <img src="iconit/menu-icon.png" alt="menuIcon" id="menuIcon">
         <img src="iconit/logo-icon.png" alt="logoT" id="siteLogo">
         <img src="iconit/placeholder-icon.png" alt="placeholder" id="placeHolder">
     </header>
-    <nav class="visibleNav" id="navId">
-        <div class="divFlex">
-        <img class="iconClassNav" alt="iconi" id="tapahtumaIcon" src="iconit/marker-icon-red.png">
-         <div id="tpCk">
-            <label id="tapahtumaLable" for ="tapahtumaCheck">Tapahtumat</label><input name="tapahtumaCheck" type="checkbox" id="tapahtumaCheck">
-         </div>
-        </div>
-        <div class="divFlex">
-        <img class="iconClassNav" alt="iconi" id="aktiviteettiIcon" src="iconit/marker-icon-green.png">
-         <div id="evntCk">
-            <label id="eventLable" for ="eventCheck">Aktiviteetit</label><input name="eventCheck" type="checkbox" id="eventCheck">
-         </div>
-        </div>
-        <div class="divFlex">
-            <img class="iconClassNav" alt="iconi" id="paikkaIcon" src="iconit/marker-icon-yellow.png">
-            <div id="paikkaiconCk">
-                <label for="paikatBox" id="paikatCheck">Paikat </label><input name="paikatT" type="checkbox" id="paikatBox">
-            </div>
-        </div>
-        <div class="divFlex">
-        <div id="paikatCk">
-            <label id="paikatLable" for="paikatInput"> Etäisyys: </label><input name="paikatInput" id="paikatInput" type="number" placeholder="Km">
-         </div>
-        </div>
-        <div class="divFlex">
-            <div id="lippuCk">
-            <label id="lipunmyyntiLable" for ="lipunmyyntiCheck">HSL-Lipunmyynti pisteet</label><input name="lipunmyyntiCheck" type="checkbox" id="lipunmyyntiCheck">
-            </div>
-        </div>
-        <div class="divFlex">
-         <button id="sortNappi">Päivitä</button>
-        </div>
-    </nav>
     <section id="mainElements">
         <div id="mapContainer"><div id="kartta"></div></div>
         <article id="footerId" class="footerHidden">
         </article>
-        <iframe id="youtubeVideo" width="560" height="315" src="https://www.youtube.com/embed/RCqeDANBYWY"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <footer id="bottomFooter">
+            <iframe id="youtubeVideo" width="560" height="315" src="https://www.youtube.com/embed/RCqeDANBYWY"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <nav class="visibleNav" id="navId">
+                <div class="divFlex">
+                    <img class="iconClassNav" alt="iconi" id="tapahtumaIcon" src="iconit/marker-icon-red.png">
+                    <div id="tpCk">
+                        <label id="tapahtumaLable" for ="tapahtumaCheck">Tapahtumat</label><input name="tapahtumaCheck" type="checkbox" id="tapahtumaCheck">
+                    </div>
+                </div>
+                <div class="divFlex">
+                    <img class="iconClassNav" alt="iconi" id="aktiviteettiIcon" src="iconit/marker-icon-green.png">
+                    <div id="evntCk">
+                        <label id="eventLable" for ="eventCheck">Aktiviteetit</label><input name="eventCheck" type="checkbox" id="eventCheck">
+                    </div>
+                </div>
+                <div class="divFlex">
+                    <img class="iconClassNav" alt="iconi" id="paikkaIcon" src="iconit/marker-icon-yellow.png">
+                    <div id="paikkaiconCk">
+                        <label for="paikatBox" id="paikatCheck">Paikat </label><input name="paikatT" type="checkbox" id="paikatBox">
+                    </div>
+                </div>
+                <div class="divFlex">
+                    <div id="paikatCk">
+                        <label id="paikatLable" for="paikatInput"> Etäisyys: </label><input name="paikatInput" id="paikatInput" type="number" placeholder="Km">
+                    </div>
+                </div>
+                <div class="divFlex">
+                    <div id="lippuCk">
+                        <label id="lipunmyyntiLable" for ="lipunmyyntiCheck">HSL-Lipunmyynti pisteet</label><input name="lipunmyyntiCheck" type="checkbox" id="lipunmyyntiCheck">
+                    </div>
+                </div>
+                <div class="divFlex">
+                    <button id="sortNappi">Päivitä</button>
+                </div>
+            </nav>
+        </footer>
     </section>
 </main>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>

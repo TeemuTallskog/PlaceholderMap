@@ -367,18 +367,32 @@ paivitysNappiT.addEventListener('click', function(){
 })
 
 
-//--------- drop down nav--------------------
 
-document.getElementById('menuIcon').addEventListener('click', function(){
-  if(document.getElementById('navId').className === "hiddenNav"){
-    document.getElementById('navId').className = "visibleNav";
+//---------Sidebad------------------
+const sidebar = document.querySelector('.sidebar');
+const mainSidebar = document.querySelector('.main-sidebar');
+document.querySelector('button').onclick = function () {
+  sidebar.classList.toggle('sidebar_small');
+  mainSidebar.classList.toggle('main-sidebar_large')
+
+    if (sidebar.className === "sidebar sidebar_small") {
+      setTimeout(function (){document.getElementById("kartta").style.zIndex = "12"},1000);
+    }
+    else {
+      document.getElementById("kartta").style.zIndex = "0";
+    }
+  if (sidebar.className === "sidebar sidebar_small") {
+    setTimeout(function (){document.getElementById("bottomFooter").style.zIndex = "12"},1000);
   }
   else {
-    document.getElementById('navId').className = "hiddenNav";
+    document.getElementById("bottomFooter").style.zIndex = "0";
   }
-})
-
-
-
+  if (sidebar.className === "sidebar sidebar_small") {
+    setTimeout(function (){document.getElementById("footerId").style.zIndex = "12"},1000);
+  }
+  else {
+    document.getElementById("footerId").style.zIndex = "0";
+  }
+}
 
 
