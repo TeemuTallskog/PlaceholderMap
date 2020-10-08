@@ -75,6 +75,9 @@ main{
 #paikatCk{
     margin: auto 25px auto 5px;
 }
+#paikkaiconCk{
+    margin: auto 25px auto 5px;
+}
 #paikatInput{
     width: 60px;
     margin-left: 5px;
@@ -154,6 +157,13 @@ header{
     top: 2px;
 }
 #lipunmyyntiCheck:hover{
+    cursor: pointer;
+}
+#paikatBox{
+    position: relative;
+    top: 2px;
+}
+#paikatCheck:hover{
     cursor: pointer;
 }
 .hiddenNav{

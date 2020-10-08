@@ -100,9 +100,9 @@ let markerGroup = L.layerGroup().addTo(kartta);  //Laittaa markkerit grouppiin, 
 
 
 //haetaan tapahtumien tiedot myHelsinki API:sta
-function myHelsinkiEvents(){
+function myHelsinkiEvents(etaisyysInput){
 const proxyOsoite = 'https://cors-anywhere.herokuapp.com/' //proxy osoite-API joka enabloi cross-origin requestit
-const myHelsinkiEventsOsoite = 'http://open-api.myhelsinki.fi/v1/events/?limit=500';
+const myHelsinkiEventsOsoite = 'http://open-api.myhelsinki.fi/v1/events/?distance_filter=' + currentLat + '%2C' + currentLon + '%2C' + etaisyysInput;
 fetch(proxyOsoite + myHelsinkiEventsOsoite).then((vastaus) => {
   return vastaus.json();
 }).then(function(myHelsinkiTapahtumat){
@@ -164,9 +164,9 @@ fetch(proxyOsoite + myHelsinkiEventsOsoite).then((vastaus) => {
 
 
 //haetaan tapahtumien tiedot myHelsinki API:sta
-function myHelsinkiActivities(){
+function myHelsinkiActivities(etaisyysInput){
   const proxyOsoite = 'https://cors-anywhere.herokuapp.com/' //proxy osoite-API joka enabloi cross-origin requestit
-  const myHelsinkiEventsOsoite = 'http://open-api.myhelsinki.fi/v1/activities/';
+  const myHelsinkiEventsOsoite = 'http://open-api.myhelsinki.fi/v1/activities/?distance_filter=' + currentLat + '%2C' + currentLon + '%2C' + etaisyysInput;
   fetch(proxyOsoite + myHelsinkiEventsOsoite).then((vastaus) => {
     return vastaus.json();
   }).then(function(myHelsinkiTapahtumat){
@@ -328,30 +328,26 @@ function VHSLlipunmyynti() {
  }).catch(function(error){console.log(error);
 })}
 
-
-
-myHelsinkiActivities(); //tulostaa aktiviteetit
-myHelsinkiEvents(); //tulostaa tapahtumat
-
 //----------------------Filter Nappi ------------------
 
 //Tämän avulla pystyy valistemaan, mitä markkereita haluaa nähdä
 
 const paivitysNappiT = document.getElementById('sortNappi');
+let paikatBox = document.getElementById('paikatBox');
 let tapahtumaCheckBox = document.getElementById('tapahtumaCheck');
 let eventCheckBox = document.getElementById('eventCheck');
-let paikatInputfield = document.getElementById('paikatInput')
+let paikatInputfield = document.getElementById('paikatInput'); //katsoo etäisyyden input fieldistä
 let lipunmyyntiCheckBox = document.getElementById('lipunmyyntiCheck');
 paivitysNappiT.addEventListener('click', function(){
   markerGroup.clearLayers();  //tyhjentää kaikki markkerit
   if(tapahtumaCheckBox.checked === true){                                         // katsoo mitkä check boxit on tickattu
-    myHelsinkiEvents();
+    myHelsinkiEvents(paikatInputfield.value);
   }
 
   if(eventCheckBox.checked === true){
-    myHelsinkiActivities();
+    myHelsinkiActivities(paikatInputfield.value);
   }
-  if(paikatInputfield.value !== ""){
+  if(paikatBox.checked === true){
     myHelsinkiPlaces(paikatInputfield.value);
   }
   if(lipunmyyntiCheckBox.checked === true){
