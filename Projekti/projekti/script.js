@@ -40,7 +40,39 @@ function error(err) {
 
 // Käynnistetään paikkatietojen haku
 navigator.geolocation.getCurrentPosition(success, error, options);
+//---------------------params-------------------------------
 
+/**
+ * @param type.L -
+ * @param type.tileLayer -
+ * @param type.addTo -
+ * @param type.bindPopup -
+ * @param type.openPopup -
+ * @param type.setView -
+ * @param type.layerGroup -
+ * @param type.event_dates - event dates
+ * @param type.date -date
+ * @param type.lon - longitude
+ * @param type.lat - Latitude
+ * @param type.fi - Suomi
+ * @param type.address - osoite
+ * @param type.street_address - katuosoite
+ * @param type.locality -
+ * @param type.info_url - info urli
+ * @param type.copyright_holder - copyrightholder kuvassa
+ * @param type.where_and_when - missa ja milloin
+ * @param type.where_when_duration - missa milloin kesto
+ * @param type.features -
+ * @param type.properties -
+ * @param type.Zone - vyöhyke
+ * @param type.geometry -
+ * @param type.coordinates -
+ * @param type.Address_help_fi -
+ * @param type.Tyyppi -
+ * @param type.Address_fi -
+ * @param type.City_fi -
+ * @param type.clearLayers - poistaa layerit leaflet
+ */
 
 //---------------------------------Iconit-------------------------------------------------------------------------
 
@@ -99,6 +131,36 @@ const VHSLlightblueIcon = L.icon({                    //vaaleansininenhsl iconi 
 
 let markerGroup = L.layerGroup().addTo(kartta);  //Laittaa markkerit grouppiin, että ne voi tyhjentää
 
+function footerStyling(latT,longT,myHelsinkiTapahtumat,i){
+  document.getElementById('footerId').className = "footerVisible";
+  document.getElementById('reittiopasKuva').src = "iconit/reittiopas.png";                                                                            //reittiopas logo ja linkki kuvasta reittioppaaseen kyseiselle reitille
+  document.getElementById('reittiopasKuva').style.display = "block";
+  document.getElementById('reittiopasLinkki').href = "https://reittiopas.hsl.fi/reitti/" + currentLat + "," + currentLon + "/" + latT + "," + longT;
+  document.getElementById('googleIcon').src = "iconit/google-maps-icon.png";
+  document.getElementById('googleIcon').style.display = "block";
+  document.getElementById('googleNav').href = `https://www.google.com/maps/dir/?api=1&origin=${currentLat},${currentLon}&destination=${latT},${longT}&travelmode=driving`;
+  document.getElementById('tapahtumaLinkki').href  = myHelsinkiTapahtumat.data[i].info_url;  //lisää tapahtuman linkin, tapahtuman nimeen
+  document.getElementById("tapahtumaKuva").innerHTML = "";  //tyhjentää aijemat kuvat
+  document.querySelector(".tekstiVali").style.visibility = "visible"; // palauttaa <hr>tagin
+  document.getElementById('tapahtumaLinkki').innerHTML = myHelsinkiTapahtumat.data[i].name.fi;  //tapahtuman nimi
+  document.getElementById('tapahtumanOsoite').innerHTML = myHelsinkiTapahtumat.data[i].location.address.street_address;  //tapahtuman osoite
+  document.getElementById('tapahtumanSummary').innerHTML = myHelsinkiTapahtumat.data[i].description.body; //tapahtuman kuvaus
+  document.getElementById('tapahtumanKaupunkiT').innerHTML = myHelsinkiTapahtumat.data[i].location.address.locality;  //tapahtuman Kaupunki
+}
+function kuvaForLoop(myHelsinkiTapahtumat,i){
+  document.getElementById('tapahtumaKuva').style.visibility = "visible";  //jos tapahtumassa ei ole kuvaa se piilottaa divin
+  for(let te = 0; myHelsinkiTapahtumat.data[i].description.images.length > te; te++){ //for looppi kuvien tulostukseen
+    let tapahtumaUrl = myHelsinkiTapahtumat.data[i].description.images[te].url;
+    document.getElementById("tapahtumaKuva").innerHTML +=`
+                  <figure>
+                  <a href="${tapahtumaUrl}" data-lightbox="10">
+                    <img class = "mySlides" src="${tapahtumaUrl}" alt ="kuva">
+                    </a>
+                    <figcaption class="copyrightHolder">${myHelsinkiTapahtumat.data[i].description.images[te].copyright_holder}</figcaption>
+                  </figure>
+                  `;
+  }
+}
 
 //haetaan tapahtumien tiedot myHelsinki API:sta
 function myHelsinkiEvents(etaisyysInput){
@@ -125,34 +187,10 @@ fetch(proxyOsoite + myHelsinkiEventsOsoite).then((vastaus) => {
         checklonlatT.push(latT + '-' + longT);                                     //lisää lon + lat listaan, jotta ei tule duplicateja
         L.marker([latT, longT], {icon: redIcon}).addTo(markerGroup).bindPopup(popupInfoT).          //lisää markerin + tapahtuman nimi popupissa
         on('click', function(){
-          document.getElementById('footerId').className = "footerVisible";
-          document.getElementById('tapahtumaLinkki').innerHTML = myHelsinkiTapahtumat.data[i].name.fi;  //tapahtuman nimi
-          document.getElementById('reittiopasKuva').src = "iconit/reittiopas.png";      //reittiopas logo ja linkki kuvasta reittioppaaseen kyseiselle reitille
-          document.getElementById('reittiopasKuva').style.display = "block";
-          document.getElementById('reittiopasLinkki').href = "https://reittiopas.hsl.fi/reitti/" + currentLat + "," + currentLon + "/" + latT + "," + longT;
-          document.getElementById('googleIcon').src = "iconit/google-maps-icon.png";
-          document.getElementById('googleIcon').style.display = "block";
-          document.getElementById('googleNav').href = `https://www.google.com/maps/dir/?api=1&origin=${currentLat},${currentLon}&destination=${latT},${longT}&travelmode=driving`;
+          footerStyling(latT,longT,myHelsinkiTapahtumat,i);
           document.getElementById('tapahtumanAjankohta').innerHTML = myHelsinkiTapahtumat.data[i].event_dates.starting_day;
-          document.getElementById('tapahtumanOsoite').innerHTML = myHelsinkiTapahtumat.data[i].location.address.street_address;  //tapahtuman osoite
-          document.getElementById('tapahtumanKaupunkiT').innerHTML = myHelsinkiTapahtumat.data[i].location.address.locality;  //tapahtuman Kaupunki
-          document.getElementById('tapahtumanSummary').innerHTML = myHelsinkiTapahtumat.data[i].description.body; //tapahtuman kuvaus
-          document.getElementById('tapahtumaLinkki').href = innerHTML = myHelsinkiTapahtumat.data[i].info_url;  //lisää tapahtuman linkin, tapahtuman nimeen
-          document.getElementById("tapahtumaKuva").innerHTML = "";  //tyhjentää aijemat kuvat
-          document.querySelector(".tekstiVali").style.visibility = "visible"; // palauttaa <hr>tagin
           if (myHelsinkiTapahtumat.data[i].description.images.length !== 0){   //liittää tapahtumaan kuuluvat kuvat
-            document.getElementById('tapahtumaKuva').style.visibility = "visible";
-            for(let te = 0; myHelsinkiTapahtumat.data[i].description.images.length > te; te++){
-              let tapahtumaUrl = myHelsinkiTapahtumat.data[i].description.images[te].url;
-              document.getElementById("tapahtumaKuva").innerHTML +=`
-                  <figure>
-                  <a href="${tapahtumaUrl}" data-lightbox="10">
-                    <img class="myslides" src="${tapahtumaUrl}" alt ="kuva">
-                    </a>
-                    <figcaption class="copyrightHolder">${myHelsinkiTapahtumat.data[i].description.images[te].copyright_holder}</figcaption>
-                  </figure>
-                  `;
-            }
+            kuvaForLoop(myHelsinkiTapahtumat,i);
           }
           else{document.getElementById('tapahtumaKuva').style.visibility = "hidden";}
         })
@@ -182,34 +220,10 @@ function myHelsinkiActivities(etaisyysInput){
         checklonlatT.push(latT + '-' + longT);                                     //lisää lon + lat listaan, jotta ei tule duplicateja
         L.marker([latT, longT], {icon: greenIcon}).addTo(markerGroup).bindPopup(popupInfoT).          //lisää markerin + tapahtuman nimi popupissa
             on('click', function(){
-              document.getElementById('footerId').className = "footerVisible";
-              document.getElementById('tapahtumaLinkki').innerHTML = myHelsinkiTapahtumat.data[i].name.fi;  //tapahtuman nimi
-              document.getElementById('reittiopasKuva').src = "iconit/reittiopas.png";                                                                            //reittiopas logo ja linkki kuvasta reittioppaaseen kyseiselle reitille
-              document.getElementById('reittiopasKuva').style.display = "block";
-              document.getElementById('reittiopasLinkki').href = "https://reittiopas.hsl.fi/reitti/" + currentLat + "," + currentLon + "/" + latT + "," + longT;
-              document.getElementById('googleIcon').src = "iconit/google-maps-icon.png";
-              document.getElementById('googleIcon').style.display = "block";
-              document.getElementById('googleNav').href = `https://www.google.com/maps/dir/?api=1&origin=${currentLat},${currentLon}&destination=${latT},${longT}&travelmode=driving`;
-              document.getElementById('tapahtumanOsoite').innerHTML = myHelsinkiTapahtumat.data[i].location.address.street_address;  //tapahtuman osoite
-              document.getElementById('tapahtumanKaupunkiT').innerHTML = myHelsinkiTapahtumat.data[i].location.address.locality;  //tapahtuman Kaupunki
+              footerStyling(latT,longT,myHelsinkiTapahtumat,i);
               document.getElementById('tapahtumanAjankohta').innerHTML = myHelsinkiTapahtumat.data[i].where_when_duration.where_and_when + '<br>' + 'Kesto: ' + myHelsinkiTapahtumat.data[i].where_when_duration.duration; // Aktiviteetin aukiolo ja kesto
-              document.getElementById('tapahtumanSummary').innerHTML = myHelsinkiTapahtumat.data[i].description.body; //tapahtuman kuvaus
-              document.getElementById('tapahtumaLinkki').href = innerHTML = myHelsinkiTapahtumat.data[i].info_url;  //lisää tapahtuman linkin, tapahtuman nimeen
-              document.getElementById("tapahtumaKuva").innerHTML = "";  //tyhjentää aijemat kuvat
-              document.querySelector(".tekstiVali").style.visibility = "visible"; // palauttaa <hr>tagin
               if (myHelsinkiTapahtumat.data[i].description.images.length !== 0){    //liittää tapahtumaan kuuluvat kuvat
-                document.getElementById('tapahtumaKuva').style.visibility = "visible";  //jos tapahtumassa ei ole kuvaa se piilottaa divin
-                for(let te = 0; myHelsinkiTapahtumat.data[i].description.images.length > te; te++){
-                  let tapahtumaUrl = myHelsinkiTapahtumat.data[i].description.images[te].url;
-                  document.getElementById("tapahtumaKuva").innerHTML +=`
-                  <figure>
-                  <a href="${tapahtumaUrl}" data-lightbox="10">
-                    <img class = "mySlides" src="${tapahtumaUrl}" alt ="kuva">
-                    </a>
-                    <figcaption class="copyrightHolder">${myHelsinkiTapahtumat.data[i].description.images[te].copyright_holder}</figcaption>
-                  </figure>
-                  `;
-                }
+                kuvaForLoop(myHelsinkiTapahtumat,i);
               }
               else{document.getElementById('tapahtumaKuva').style.visibility = "hidden";}
             })
@@ -239,34 +253,13 @@ function myHelsinkiPlaces(etaisyysInput){
         checklonlatT.push(latT + '-' + longT);                                     //lisää lon + lat listaan, jotta ei tule duplicateja
         L.marker([latT, longT], {icon: yellowIcon}).addTo(markerGroup).bindPopup(popupInfoT).          //lisää markerin + tapahtuman nimi popupissa
             on('click', function(){
-              document.getElementById('footerId').className = "footerVisible";
+              footerStyling(latT,longT,myHelsinkiTapahtumat,i);
               document.getElementById('tapahtumaLinkki').innerHTML = myHelsinkiTapahtumat.data[i].name.fi;  //tapahtuman nimi
-              document.getElementById('reittiopasKuva').src = "iconit/reittiopas.png";                                                                            //reittiopas logo ja linkki kuvasta reittioppaaseen kyseiselle reitille
-              document.getElementById('reittiopasKuva').style.display = "block";
-              document.getElementById('reittiopasLinkki').href = "https://reittiopas.hsl.fi/reitti/" + currentLat + "," + currentLon + "/" + latT + "," + longT;
-              document.getElementById('googleIcon').src = "iconit/google-maps-icon.png";
-	            document.getElementById('googleIcon').style.display = "block";
-              document.getElementById('googleNav').href = `https://www.google.com/maps/dir/?api=1&origin=${currentLat},${currentLon}&destination=${latT},${longT}&travelmode=driving`;
               document.getElementById('tapahtumanOsoite').innerHTML = myHelsinkiTapahtumat.data[i].location.address.street_address;  //tapahtuman osoite
-              document.getElementById('tapahtumanKaupunkiT').innerHTML = myHelsinkiTapahtumat.data[i].location.address.locality;  //tapahtuman Kaupunki
               document.getElementById('tapahtumanAjankohta').innerHTML = ''; // tyhjentää aijemmat tiedot
-              document.getElementById('tapahtumanSummary').innerHTML = myHelsinkiTapahtumat.data[i].description.body; //tapahtuman kuvaus
-              document.getElementById('tapahtumaLinkki').href = innerHTML = myHelsinkiTapahtumat.data[i].info_url;  //lisää tapahtuman linkin, tapahtuman nimeen
-              document.getElementById("tapahtumaKuva").innerHTML = "";  //tyhjentää aijemat kuvat
               document.querySelector(".tekstiVali").style.visibility = "hidden";
               if (myHelsinkiTapahtumat.data[i].description.images.length !== 0){    //liittää tapahtumaan kuuluvat kuvat
-                document.getElementById('tapahtumaKuva').style.visibility = "visible";  //jos tapahtumassa ei ole kuvaa se piilottaa divin
-                for(let te = 0; myHelsinkiTapahtumat.data[i].description.images.length > te; te++){
-                  let tapahtumaUrl = myHelsinkiTapahtumat.data[i].description.images[te].url;
-                  document.getElementById("tapahtumaKuva").innerHTML +=`
-                  <figure>
-                  <a href="${tapahtumaUrl}" data-lightbox="10">
-                    <img class = "mySlides" src="${tapahtumaUrl}" alt ="kuva">
-                    </a>
-                    <figcaption class="copyrightHolder">${myHelsinkiTapahtumat.data[i].description.images[te].copyright_holder}</figcaption>
-                  </figure>
-                  `;
-                }
+                kuvaForLoop(myHelsinkiTapahtumat,i);
               }
               else{document.getElementById('tapahtumaKuva').style.visibility = "hidden";}
             })
