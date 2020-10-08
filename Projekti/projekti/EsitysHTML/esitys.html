@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Esitys</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" rel="stylesheet">
+    <link href="esitys.css" rel="stylesheet">
 </head>
 <body>
 <h1>Projekti</h1>
@@ -17,15 +19,78 @@
 <h3>Sovelluksessa käytetyt API:t :</h3>
 <a href="http://open-api.myhelsinki.fi/"><h4>MyHelsinki Open API:</h4></a>
 <p>MyHelsinki Open API antaa tapahtuma tietoja pääkaupunki seudulta</p>
-<p>Esimerrki Request Url:</p>
+<p>Esimerrki JSON Request Url:</p>
 <ul>
-    <li>http://open-api.myhelsinki.fi/v1/activities/</li>
-    <li>http://open-api.myhelsinki.fi/v1/events/</li>
-    <li>http://open-api.myhelsinki.fi/v1/places/</li>
+    <li>http://open-api.myhelsinki.fi/v1/activities/?distance_filer=lat%2Clon%2Crange</li>
+    <li>http://open-api.myhelsinki.fi/v1/events/?distance_filer=lat%2Clon%2Crange</li>
+    <li>http://open-api.myhelsinki.fi/v1/places/?distance_filer=lat%2Clon%2Crange</li>
 </ul>
 
 <br>
 <a href="https://www.hsl.fi/avoindata" ><h4>HSL Avoin data:</h4></a>
+<p>HSL:län avoin data pystyy antamaan tosi paljon eri tietoa joukkoliikenteestä ja muustakin, mutta käytimme sitä saamaan tietoa HSL:n myyntipisteistä. </p>
+<p>Esimerkki JSON Request Url:</p>
+<ul>
+    <li>https://opendata.arcgis.com/datasets/727c6618a0814f8ba21bb00c9cb34019_0.geojson</li>
+</ul>
+<br>
+<a href="https://leafletjs.com/"><h4>Leaflet OpenStreetMap</h4></a>
+<p>Karttamme sovelluksessa perustuu leafletin avoimeen dataan</p>
+<p>Esimerkki kartta: </p>
+<div id="kartta"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+<script>
+  let paikka = null;
+  let currentLon = '';
+  let currentLat = '';
+  // liitetään kartta #kartta id:seen
+  const kartta = L.map('kartta');
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  }).addTo(kartta);
+  paivitaKartta({latitude: 64, longitude: 24}, 5);
+
+  const options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0,
+  };
+
+  function success(pos) {
+    const crd = pos.coords;
+    paikka = crd;
+    paivitaKartta(crd, 13);
+    currentLon = pos.coords.longitude;
+    currentLat = pos.coords.latitude
+    L.marker([currentLat, currentLon], {icon: imHereMarker}).addTo(kartta).bindPopup('Olet tässä').openPopup();  // tekee markerin ja popupin, joka näyttää nykyisen paikkasi.
+
+  }
+
+  function paivitaKartta(crd, zoom) {
+    kartta.setView([crd.latitude, crd.longitude], zoom);
+  }
+
+  function error(err) {
+    console.warn(`ERROR(${err.code}): ${err.message}`);
+  }
+
+  navigator.geolocation.getCurrentPosition(success, error, options);
+</script>
+<br>
+<h4>CORS Anywhere</h4>
+<p>Viimeisenä jouduin käyytämään https://cors-anywhere.herokuapp.com/ Proxy API:ta, jotta pystyin käyttämään MyHelsinki API:ta.
+CORS Anywhere enabloi cross-origin requestit jos niiden kanssa on ongelmaa.</p>
+<p>Esimerkki:</p>
+<p><code>function myHelsinkiEvents(etaisyysInput){
+    const proxyOsoite = 'https://cors-anywhere.herokuapp.com/'<br>
+    const myHelsinkiEventsOsoite = 'http://open-api.myhelsinki.fi/v1/events/?distance_filter=' + currentLat + '%2C' + currentLon + '%2C' + etaisyysInput;<br>
+    fetch(proxyOsoite + myHelsinkiEventsOsoite).then((vastaus) => {<br>
+    return vastaus.json();
+    })</code></p>
+
+<br>
+
+<p>Sovelluksessa käytin lisäksi myös Lightboxia</p>
 
 </body>
 </html>
