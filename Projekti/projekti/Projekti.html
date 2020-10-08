@@ -11,21 +11,17 @@
 </head>
 <body>
 <main class="main">
-    <div class="grid-container">
-        <div class="sidebar sidebar_small">
-            <h2 class="abouthidden"><a id="sidebarAbout" href="EsitysHTML/esitys.html">About</a></h2>
-            <hr id="sidebarHr">
-            <button class="sidebar_button">
-                ☰
-            </button>
-        </div>
-        <div class="main-sidebar main-sidebar_large"></div>
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        <a href="EsitysHTML/esitys.html">About</a>
     </div>
     <header>
+        <button class="openbtn" onclick="openNav()">☰</button>
         <img src="iconit/logo-icon.png" alt="logoT" id="siteLogo">
         <img src="iconit/placeholder-icon.png" alt="placeholder" id="placeHolder">
     </header>
     <section id="mainElements">
+        <h6>.</h6>
         <div id="mapContainer"><div id="kartta"></div></div>
         <aside id="footerId" class="footerHidden">
         </aside>

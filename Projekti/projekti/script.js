@@ -257,7 +257,7 @@ function myHelsinkiActivities(etaisyysInput){
 //haetaan tapahtumien tiedot myHelsinki API:sta
 function myHelsinkiPlaces(etaisyysInput){
   const proxyOsoite = 'https://cors-anywhere.herokuapp.com/' //proxy osoite-API joka enabloi cross-origin requestit
-  const myHelsinkiEventsOsoite = 'http://open-api.myhelsinki.fi/v1/places/?distance_filter=' + currentLat + '%2C' + currentLon + '%2C' + etaisyysInput;
+  const myHelsinkiEventsOsoite = 'http://open-api.myhelsinki.fi/v1/places/?distance_filter=' + currentLat + '%2C' + currentLon + '%2C' + etaisyysInput + '&limit=100';
   fetch(proxyOsoite + myHelsinkiEventsOsoite).then((vastaus) => {
     return vastaus.json();
   }).then(function(myHelsinkiTapahtumat){
@@ -369,32 +369,13 @@ paivitysNappiT.addEventListener('click', function(){
 
 
 //---------Sidebad------------------
-const sidebar = document.querySelector('.sidebar');
-const mainSidebar = document.querySelector('.main-sidebar');
-const aboutSection = document.querySelector('.abouthidden');
-document.querySelector('button').onclick = function () {
-  sidebar.classList.toggle('sidebar_small');
-  mainSidebar.classList.toggle('main-sidebar_large');
-  aboutSection.classList.toggle('aboutLink');
-
-    if (sidebar.className === "sidebar sidebar_small") {
-      setTimeout(function (){document.getElementById("kartta").style.zIndex = "12"},500);
-    }
-    else {
-      document.getElementById("kartta").style.zIndex = "0";
-    }
-  if (sidebar.className === "sidebar sidebar_small") {
-    setTimeout(function (){document.getElementById("bottomFooter").style.zIndex = "12"},500);
-  }
-  else {
-    document.getElementById("bottomFooter").style.zIndex = "0";
-  }
-  if (sidebar.className === "sidebar sidebar_small") {
-    setTimeout(function (){document.getElementById("footerId").style.zIndex = "12"},500);
-  }
-  else {
-    document.getElementById("footerId").style.zIndex = "0";
-  }
+function openNav() {
+  document.getElementById("mySidebar").style.width = "250px";
+  document.getElementById("main").style.marginLeft = "250px";
 }
+
+function closeNav() {
+  document.getElementById("mySidebar").style.width = "0";
+  document.getElementById("main").style.marginLeft= "0";}
 
 
