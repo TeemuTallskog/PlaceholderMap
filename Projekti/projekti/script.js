@@ -132,6 +132,22 @@ const VHSLlightblueIcon = L.icon({                    //vaaleansininenhsl iconi 
 let markerGroup = L.layerGroup().addTo(kartta);  //Laittaa markkerit grouppiin, että ne voi tyhjentää
 
 function footerStyling(latT,longT,myHelsinkiTapahtumat,i){
+  document.getElementById("footerId").innerHTML =`
+  <article class="tapahtumatiedotT">
+            <h3 id="tapahtumanNimiT"><a id="tapahtumaLinkki"></a></h3>
+            <figure id="tapahtumaKuva"></figure>
+            <div id="tapahtumaTeksti">
+               <h4 id="tapahtumanOsoite"></h4>
+                <p id="tapahtumanKaupunkiT"></p>
+                <hr class="tekstiVali">
+                <p id="tapahtumanAjankohta"></p>
+                <hr class="tekstiVali">
+                <div id="tapahtumanSummary"></div>
+            </div>
+            <a id="reittiopasLinkki"><img src="iconit/reittiopas.png" id="reittiopasKuva" alt="reittiopasimg" style="display: none"></a>
+            <a id="googleNav"><img src ="iconit/google-maps-icon.png" id="googleIcon" alt="GoogleImg" style="display: none"></a>
+        </article>
+  `
   document.getElementById('footerId').className = "footerVisible";
   document.getElementById('reittiopasKuva').src = "iconit/reittiopas.png";                                                                            //reittiopas logo ja linkki kuvasta reittioppaaseen kyseiselle reitille
   document.getElementById('reittiopasKuva').style.display = "block";
@@ -162,6 +178,16 @@ function kuvaForLoop(myHelsinkiTapahtumat,i){
   }
 }
 
+function imageIfstatements(i,myHelsinkiTapahtumat){
+  if(myHelsinkiTapahtumat.data[i].description.images !== null){
+    if (myHelsinkiTapahtumat.data[i].description.images.length !== 0){    //liittää tapahtumaan kuuluvat kuvat
+      kuvaForLoop(myHelsinkiTapahtumat,i);
+    }
+    else{document.getElementById('tapahtumaKuva').style.visibility = "hidden";}
+  }
+  else{document.getElementById('tapahtumaKuva').style.visibility = "hidden";}
+}
+
 //haetaan tapahtumien tiedot myHelsinki API:sta
 function myHelsinkiEvents(etaisyysInput){
 const proxyOsoite = 'https://cors-anywhere.herokuapp.com/' //proxy osoite-API joka enabloi cross-origin requestit
@@ -189,10 +215,7 @@ fetch(proxyOsoite + myHelsinkiEventsOsoite).then((vastaus) => {
         on('click', function(){
           footerStyling(latT,longT,myHelsinkiTapahtumat,i);
           document.getElementById('tapahtumanAjankohta').innerHTML = myHelsinkiTapahtumat.data[i].event_dates.starting_day;
-          if (myHelsinkiTapahtumat.data[i].description.images.length !== 0){   //liittää tapahtumaan kuuluvat kuvat
-            kuvaForLoop(myHelsinkiTapahtumat,i);
-          }
-          else{document.getElementById('tapahtumaKuva').style.visibility = "hidden";}
+          imageIfstatements(i,myHelsinkiTapahtumat);
         })
       }
       else{}
@@ -222,10 +245,7 @@ function myHelsinkiActivities(etaisyysInput){
             on('click', function(){
               footerStyling(latT,longT,myHelsinkiTapahtumat,i);
               document.getElementById('tapahtumanAjankohta').innerHTML = myHelsinkiTapahtumat.data[i].where_when_duration.where_and_when + '<br>' + 'Kesto: ' + myHelsinkiTapahtumat.data[i].where_when_duration.duration; // Aktiviteetin aukiolo ja kesto
-              if (myHelsinkiTapahtumat.data[i].description.images.length !== 0){    //liittää tapahtumaan kuuluvat kuvat
-                kuvaForLoop(myHelsinkiTapahtumat,i);
-              }
-              else{document.getElementById('tapahtumaKuva').style.visibility = "hidden";}
+              imageIfstatements(i,myHelsinkiTapahtumat);
             })
       }
       else{}
@@ -258,10 +278,7 @@ function myHelsinkiPlaces(etaisyysInput){
               document.getElementById('tapahtumanOsoite').innerHTML = myHelsinkiTapahtumat.data[i].location.address.street_address;  //tapahtuman osoite
               document.getElementById('tapahtumanAjankohta').innerHTML = ''; // tyhjentää aijemmat tiedot
               document.querySelector(".tekstiVali").style.visibility = "hidden";
-              if (myHelsinkiTapahtumat.data[i].description.images.length !== 0){    //liittää tapahtumaan kuuluvat kuvat
-                kuvaForLoop(myHelsinkiTapahtumat,i);
-              }
-              else{document.getElementById('tapahtumaKuva').style.visibility = "hidden";}
+              imageIfstatements(i,myHelsinkiTapahtumat);
             })
       }
       else{}

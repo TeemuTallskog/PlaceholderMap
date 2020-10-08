@@ -239,10 +239,11 @@ footer{
     position: relative;
     align-content: center;
     background-color: #131112;
-    padding: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
     border-radius: 10px;
     width: 80%;
-    margin: auto;
+    margin: 25px auto 0;
 }
 
 #tapahtumaKuva img{
@@ -278,7 +279,7 @@ footer{
     border-radius: 15px;
 }
 #tapahtumanNimiT{
-    margin: 25px auto;
+    margin: 25px auto 0;
     font-family: 'Montserrat', sans-serif;
 }
 #tapahtumanAjankohta{
