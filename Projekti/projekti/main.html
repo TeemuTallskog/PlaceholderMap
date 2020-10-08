@@ -5,45 +5,66 @@
     <title>Title</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" rel="stylesheet">
     <link href="stylesheet.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
 </head>
 <body>
 <main class="main">
     <header>
         <img src="iconit/menu-icon.png" alt="menuIcon" id="menuIcon">
         <img src="iconit/logo-icon.png" alt="logoT" id="siteLogo">
+        <img src="iconit/placeholder-icon.png" alt="placeholder" id="placeHolder">
     </header>
-    <nav class="hiddenNav" id="navId">
+    <nav class="visibleNav" id="navId">
+        <div class="divFlex">
+        <img alt="iconi" id="tapahtumaIcon" src="iconit/marker-icon-red.png">
          <div id="tpCk">
-            <label for ="tapahtumaCheck">Tapahtumat</label><input name="tapahtumaCheck" type="checkbox" id="tapahtumaCheck">
+            <label id="tapahtumaLable" for ="tapahtumaCheck">Tapahtumat</label><input name="tapahtumaCheck" type="checkbox" id="tapahtumaCheck" checked>
          </div>
-         <div id="evntCk">
-            <label for ="eventCheck">Aktiviteetit</label><input name="eventCheck" type="checkbox" id="eventCheck">
-         </div>
-            <div id="lippuCk">
-            <label for ="lipunmyyntiCheck">HSL-Lipunmyynti pisteet</label><input name="lipunmyyntiCheck" type="checkbox" id="lipunmyyntiCheck">
-            </div>
-         <button id="sortNappi">Päivitä</button>
-    </nav>
-    <div id="kartta"></div>
-</main>
-<footer id="footerId">
-    <article class="tapahtumatiedotT">
-        <h3 id="tapahtumanNimiT"><a id="tapahtumaLinkki"></a></h3>
-        <figure id="tapahtumaKuva"></figure>
-        <div id="tapahtumaTeksti">
-            <h4 id="tapahtumanOsoite"></h4>
-            <p id="tapahtumanKaupunkiT"></p>
-            <hr>
-            <p id="tapahtumanAjankohta"></p>
-            <hr>
-            <div id="tapahtumanSummary"></div>
         </div>
-        <a id="reittiopasLinkki"><img src="" id="reittiopasKuva" alt="reittiopasimg" style="display: none"></a>
-        <a id="googleNav"><img src ="" id="googleIcon" alt="GoogleImg" style="display: none"></a>
-    </article>
-</footer>
-
-
+        <div class="divFlex">
+        <img alt="iconi" id="aktiviteettiIcon" src="iconit/marker-icon-green.png">
+         <div id="evntCk">
+            <label id="eventLable" for ="eventCheck">Aktiviteetit</label><input name="eventCheck" type="checkbox" id="eventCheck" checked>
+         </div>
+        </div>
+        <div class="divFlex">
+        <img alt="iconi" id="paikkaIcon" src="iconit/marker-icon-yellow.png">
+        <div id="paikatCk">
+            <label id="paikatLable" for="paikatInput">Paikat, Etäisyys: </label><input name="paikatInput" id="paikatInput" type="number" placeholder="Km">
+         </div>
+        </div>
+        <div class="divFlex">
+            <div id="lippuCk">
+            <label id="lipunmyyntiLable" for ="lipunmyyntiCheck">HSL-Lipunmyynti pisteet</label><input name="lipunmyyntiCheck" type="checkbox" id="lipunmyyntiCheck">
+            </div>
+        </div>
+        <div class="divFlex">
+         <button id="sortNappi">Päivitä</button>
+        </div>
+    </nav>
+    <div id="mapContainer">
+    <div id="kartta"></div>
+        <iframe id="youtubeVideo" width="560" height="315" src="https://www.youtube.com/embed/RCqeDANBYWY"
+                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <footer id="footerId" class="footerHidden">
+        <article class="tapahtumatiedotT">
+            <h3 id="tapahtumanNimiT"><a id="tapahtumaLinkki"></a></h3>
+            <figure id="tapahtumaKuva"></figure>
+            <div id="tapahtumaTeksti">
+                <h4 id="tapahtumanOsoite"></h4>
+                <p id="tapahtumanKaupunkiT"></p>
+                <hr class="tekstiVali">
+                <p id="tapahtumanAjankohta"></p>
+                <hr class="tekstiVali">
+                <div id="tapahtumanSummary"></div>
+            </div>
+            <a id="reittiopasLinkki"><img src="" id="reittiopasKuva" alt="reittiopasimg" style="display: none"></a>
+            <a id="googleNav"><img src ="" id="googleIcon" alt="GoogleImg" style="display: none"></a>
+        </article>
+    </footer>
+</main>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
 <script src="script.js"></script>
 </body>

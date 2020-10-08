@@ -5,6 +5,11 @@
    279AF1, Carolina Blue
    60656F, Black coral - harmaa
    131112, Smoky Black - musta
+
+
+   fontit:
+   font-family: 'Montserrat', sans-serif; title text
+   font-family: 'Source Sans Pro', sans-serif; plane text
    */
 
 
@@ -15,40 +20,65 @@ html, body{
     width: 100%;
     margin: 0;
     position: absolute;
+    flex-direction: column;
 }
 main{
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-
-    position: relative;
+    position: absolute;
+    flex-flow: row wrap;
+    justify-content: center;
 }
+
 #navId{
     background-color: #f7f7ff;
-    height: 50px;
+    min-height: 60px;
     width: 100%;
     align-items: center;
-    top: -13px;
+    font-family: 'Source Sans Pro', sans-serif;
+    top: 70px;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+}
+.divFlex{
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    position: relative;
+    justify-content: space-evenly;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 #tpCk{
-    margin: auto;
+    margin: auto 25px auto 5px;
 }
 #evntCk{
-    margin: auto;
+    margin: auto 25px auto 5px;
 }
 #lippuCk{
-    margin: auto;
+    margin: auto 25px auto 5px;
 }
 #sortNappi{
-    margin: auto;
+    margin: 5px 25px;
 }
+#paikatCk{
+    margin: auto 25px auto 5px;
+}
+#paikatInput{
+    width: 60px;
+    margin-left: 5px;
+}
+#tapahtumaIcon{
+    margin-left: 25px;
+}
+
 header{
     background-color: #131112;
     flex-wrap: wrap;
     width: 100%;
     height: 50px;
     padding: 10px;
-    position: relative;
     z-index: 2;
     top: 0;
     left: 0;
@@ -58,8 +88,8 @@ header{
     height: 80%;
     width: 50px;
     position: relative;
-    top: 10px;
-    left: 10px;
+    top: 5px;
+    left: 0;
 }
 #menuIcon:hover{
     cursor: pointer;
@@ -69,39 +99,80 @@ header{
 #siteLogo{
     height: 40px;
 }
+#placeHolder{
+    height: 40px;
+    position: absolute;
+}
 
 #kartta{
-    display: flex;
-    flex-wrap: wrap;
-    position: relative;
     z-index: 1;
     width: 90%;
-    height: 450px;
-    top: -25px;
+    height: 600px;
     border-radius: 10px;
-    margin: 25px auto;
+    margin: 25px 5%;
+    position: absolute;
+    top: 0;
+}
+#mapContainer{
+    width: 40%;
+    margin: 0 0 25px 5%;
+    border-radius: 10px;
+    align-content: center;
+    display: flex;
+    justify-content: space-evenly;
+    flex-flow: column wrap;
+    position: relative;
 }
 .visibleNav{
     display: flex;
-    flex-wrap: wrap;
+}
+#tapahtumaCheck{
     position: relative;
+    top: 2px;
+}
+#tapahtumaCheck:hover{
+    cursor: pointer;
+}
+#eventCheck{
+    position: relative;
+    top: 2px;
+}
+#eventCheck:hover{
+    cursor: pointer;
+}
+#lipunmyyntiCheck{
+    position: relative;
+    top: 2px;
+}
+#lipunmyyntiCheck:hover{
+    cursor: pointer;
 }
 .hiddenNav{
     display: none;
 }
+
 footer{
-    display: flex;
-    flex-wrap: wrap;
-    position: relative;
-    /* top: -360px; */
     text-align: center;
     background-color: #279AF1;
-    width: 90%;
+    width: 50%;
     border-radius: 10px;
-    margin: auto auto 25px;
+    margin: 25px 5% 25px 0;
 }
-#footerId{
+.footerHidden{
     visibility: hidden;
+    width: 0;
+    height: 0;
+    margin: 0;
+}
+.footerVisible{
+    visibility: visible;
+}
+
+#youtubeVideo{
+    width: 90%;
+    margin: 25px 5% 25px;
+    position: absolute;
+    top: 625px;
 }
 #tapahtumatiedotT{
     display: flex;
@@ -111,21 +182,23 @@ footer{
     background-color: #f7f7ff;
     border-radius: 25px;
     width: 25%;
-    margin: 25px auto;
+    margin: 0 auto;
     padding: 5px;
     position: relative;
+    min-width: 150px;
 }
 #reittiopasKuva:hover{
     box-shadow: 5px 5px gray;
 }
 #googleIcon{
     width: 5%;
-    margin: 25px auto;
+    margin: 5px auto 25px;
     position: relative;
+    min-width: 50px;
 }
 #googleIcon:hover{
     box-shadow: 5px 5px gray;
-    border-radius: 10px;
+    border-radius: 15px;
 }
 #reittiopasLinkki{
     width: 25%;
@@ -159,10 +232,11 @@ footer{
 }
 #tapahtumaTeksti{
     width: 80%;
-    margin: 25px auto;
+    margin: 25px auto 5px;
     background-color: #f7f7ff;
     border-radius: 10px;
     padding: 15px;
+    font-family: 'Source Sans Pro', sans-serif;
 }
 #tapahtumaLinkki{
     color: #131112;
@@ -179,6 +253,7 @@ footer{
 }
 #tapahtumanNimiT{
     margin: 25px auto;
+    font-family: 'Montserrat', sans-serif;
 }
 #tapahtumanAjankohta{
     margin: 15px auto;
@@ -194,4 +269,36 @@ footer{
     margin-left: 25px;
     margin-right: 25px;
     margin-bottom: 10px;
+}
+.tekstiVali{
+    display: block;
+}
+.copyrightHolder{
+    color: #f7f7ff;
+    font-family: 'Montserrat', sans-serif;
+}
+
+@media only screen and (max-width: 1000px) {
+    footer{
+        width: 90%;
+        position: absolute;
+        top: 1100px;
+        margin: 25px 5% 25px 5%;
+    }
+    #mapContainer{
+        width: 90%;
+        margin: 0;
+    }
+    #kartta{
+        width: 100%;
+        margin-top: 25px;
+        margin-right: 0;
+        margin-left: 0;
+    }
+    #youtubeVideo{
+        width: 100%;
+        margin-top: 25px;
+        margin-right: 0;
+        margin-left: 0;
+    }
 }
