@@ -48,7 +48,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/OneDrive/Työpöytä/kuvasivu" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="JavaScript.Libraries" />
@@ -71,7 +71,7 @@
       <workItem from="1601486054941" duration="22000" />
       <workItem from="1601552220977" duration="17176000" />
       <workItem from="1601639545603" duration="1158000" />
-      <workItem from="1602058694715" duration="58126000" />
+      <workItem from="1602058694715" duration="59324000" />
     </task>
     <servers />
   </component>
@@ -91,10 +91,11 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1094" y="474" key="FileChooserDialogImpl" timestamp="1601486074739">
-      <screen x="68" y="0" width="2492" height="1440" />
+    <state x="1093" y="474" key="FileChooserDialogImpl" timestamp="1602119141937">
+      <screen x="67" y="0" width="2493" height="1440" />
     </state>
     <state x="1094" y="474" key="FileChooserDialogImpl/-1852.130.1852.1080/68.0.2492.1440@68.0.2492.1440" timestamp="1601486074739" />
+    <state x="1093" y="474" key="FileChooserDialogImpl/-1853.130.1853.1080/67.0.2493.1440@67.0.2493.1440" timestamp="1602119141937" />
     <state x="814" y="364" width="1394" height="711" key="SettingsEditor" timestamp="1602096907605">
       <screen x="67" y="0" width="2493" height="1440" />
     </state>

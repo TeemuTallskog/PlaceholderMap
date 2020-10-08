@@ -145,7 +145,9 @@ fetch(proxyOsoite + myHelsinkiEventsOsoite).then((vastaus) => {
               let tapahtumaUrl = myHelsinkiTapahtumat.data[i].description.images[te].url;
               document.getElementById("tapahtumaKuva").innerHTML +=`
                   <figure>
+                  <a href="${tapahtumaUrl}" data-lightbox="10">
                     <img class="myslides" src="${tapahtumaUrl}" alt ="kuva">
+                    </a>
                     <figcaption class="copyrightHolder">${myHelsinkiTapahtumat.data[i].description.images[te].copyright_holder}</figcaption>
                   </figure>
                   `;
@@ -200,7 +202,9 @@ function myHelsinkiActivities(){
                   let tapahtumaUrl = myHelsinkiTapahtumat.data[i].description.images[te].url;
                   document.getElementById("tapahtumaKuva").innerHTML +=`
                   <figure>
+                  <a href="${tapahtumaUrl}" data-lightbox="10">
                     <img class = "mySlides" src="${tapahtumaUrl}" alt ="kuva">
+                    </a>
                     <figcaption class="copyrightHolder">${myHelsinkiTapahtumat.data[i].description.images[te].copyright_holder}</figcaption>
                   </figure>
                   `;
@@ -254,7 +258,9 @@ function myHelsinkiPlaces(etaisyysInput){
                   let tapahtumaUrl = myHelsinkiTapahtumat.data[i].description.images[te].url;
                   document.getElementById("tapahtumaKuva").innerHTML +=`
                   <figure>
+                  <a href="${tapahtumaUrl}" data-lightbox="10">
                     <img class = "mySlides" src="${tapahtumaUrl}" alt ="kuva">
+                    </a>
                     <figcaption class="copyrightHolder">${myHelsinkiTapahtumat.data[i].description.images[te].copyright_holder}</figcaption>
                   </figure>
                   `;
